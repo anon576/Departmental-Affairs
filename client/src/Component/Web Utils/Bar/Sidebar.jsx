@@ -11,19 +11,29 @@ const Sidebar = () => {
   const [sideBarOpen, setSideBarOpen] = useState(true);
   const [openDropdown, setOpenDropdown] = useState(null); // For main dropdowns
   const [openSubMenu, setOpenSubMenu] = useState(null); // For second-level sub-menus
+  const [openSubSubMenu, setOpenSubSubMenu] = useState(null); // For third-level sub-menus
 
   const handleSideBarOpen = () => {
     setSideBarOpen(!sideBarOpen);
-    setOpenDropdown(null)
+    setOpenDropdown(null);
+    setOpenSubMenu(null);
+    setOpenSubSubMenu(null);
   };
 
   const toggleDropdown = (menu) => {
     setSideBarOpen(true);
     setOpenDropdown(openDropdown === menu ? null : menu);
+    setOpenSubMenu(null);
+    setOpenSubSubMenu(null);
   };
 
   const toggleSubMenu = (menu) => {
     setOpenSubMenu(openSubMenu === menu ? null : menu);
+    setOpenSubSubMenu(null);
+  };
+
+  const toggleSubSubMenu = (menu) => {
+    setOpenSubSubMenu(openSubSubMenu === menu ? null : menu);
   };
 
   return (
@@ -49,7 +59,7 @@ const Sidebar = () => {
             onClick={() => toggleDropdown("myDrive")}
           >
             <SiProtondrive className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>My Drive</p>
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>Research</p>
             <span
               className="down-arrow"
               style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -68,12 +78,12 @@ const Sidebar = () => {
 
           {openDropdown === "myDrive" && (
             <div className="sub-menu-box">
-              {/* <div className="sub-menu-link"> */}
+              {/* Publication */}
               <div
                 className="sub-menu-link"
-                onClick={() => toggleSubMenu("file1")}
+                onClick={() => toggleSubMenu("publication")}
               >
-                <p>File 1</p>
+                <p>Publication</p>
                 <span
                   className="down-arrow"
                   style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -82,7 +92,7 @@ const Sidebar = () => {
                     className="down-arrow-icon"
                     style={{
                       transform:
-                        openSubMenu === "file1"
+                        openSubMenu === "publication"
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                     }}
@@ -90,19 +100,102 @@ const Sidebar = () => {
                 </span>
               </div>
 
-              {openSubMenu === "file1" && (
+              {openSubMenu === "publication" && (
                 <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">File 1 content 1 </p>
-                  <p className="second-sub-menu-link">File 1 content 2</p>
+                  {/* Conference */}
+                  <div
+                    className="second-sub-menu-link"
+                    onClick={() => toggleSubSubMenu("conference")}
+                  >
+                    <p>Conference</p>
+                    <span
+                      className="down-arrow"
+                      style={{ display: sideBarOpen ? "flex" : "none" }}
+                    >
+                      <IoIosArrowDown
+                        className="down-arrow-icon"
+                        style={{
+                          transform:
+                            openSubSubMenu === "conference"
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
+                        }}
+                      />
+                    </span>
+                  </div>
+
+                  {openSubSubMenu === "conference" && (
+                    <div className="third-sub-menu-box">
+                      <p
+                        className="third-sub-menu-link"
+                        onClick={() => {
+                          /* Add your View Conference action here */
+                        }}
+                      >
+                        View Conference
+                      </p>
+                      <p
+                        className="third-sub-menu-link"
+                        onClick={() => {
+                          /* Add your Add Conference action here */
+                        }}
+                      >
+                        Add Conference
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Journal */}
+                  <div
+                    className="second-sub-menu-link"
+                    onClick={() => toggleSubSubMenu("journal")}
+                  >
+                    <p>Journal</p>
+                    <span
+                      className="down-arrow"
+                      style={{ display: sideBarOpen ? "flex" : "none" }}
+                    >
+                      <IoIosArrowDown
+                        className="down-arrow-icon"
+                        style={{
+                          transform:
+                            openSubSubMenu === "journal"
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
+                        }}
+                      />
+                    </span>
+                  </div>
+
+                  {openSubSubMenu === "journal" && (
+                    <div className="third-sub-menu-box">
+                      <p
+                        className="third-sub-menu-link"
+                        onClick={() => {
+                          /* Add your View Journal action here */
+                        }}
+                      >
+                        View Journal
+                      </p>
+                      <p
+                        className="third-sub-menu-link"
+                        onClick={() => {
+                          /* Add your Add Journal action here */
+                        }}
+                      >
+                        Add Journal
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
-              {/* </div> */}
-              {/* <div className="sub-menu-link"> */}
+
+              {/* Proposal */}
               <div
                 className="sub-menu-link"
-                onClick={() => toggleSubMenu("file2")}
+                onClick={() => toggleSubMenu("proposal")}
               >
-                <p>File 2</p>
+                <p>Proposal</p>
                 <span
                   className="down-arrow"
                   style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -111,7 +204,7 @@ const Sidebar = () => {
                     className="down-arrow-icon"
                     style={{
                       transform:
-                        openSubMenu === "file2"
+                        openSubMenu === "proposal"
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                     }}
@@ -119,25 +212,82 @@ const Sidebar = () => {
                 </span>
               </div>
 
-              {openSubMenu === "file2" && (
+              {openSubMenu === "proposal" && (
                 <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">File 2 content 1 </p>
-                  <p className="second-sub-menu-link">File 2 content 2</p>
+                  <p className="second-sub-menu-link">View Proposal</p>
+                  <p className="second-sub-menu-link">Add New Proposal</p>
+                </div>
+              )}
+
+              {/* Patent */}
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubMenu("patent")}
+              >
+                <p>Patent</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                  <IoIosArrowDown
+                    className="down-arrow-icon"
+                    style={{
+                      transform:
+                        openSubMenu === "patent"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                  />
+                </span>
+              </div>
+
+              {openSubMenu === "patent" && (
+                <div className="second-sub-menu-box">
+                  <p className="second-sub-menu-link">View Patent</p>
+                  <p className="second-sub-menu-link">Add New Patent</p>
+                </div>
+              )}
+
+              {/* Copyright */}
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubMenu("copyright")}
+              >
+                <p>Copyright</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                  <IoIosArrowDown
+                    className="down-arrow-icon"
+                    style={{
+                      transform:
+                        openSubMenu === "copyright"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                  />
+                </span>
+              </div>
+
+              {openSubMenu === "copyright" && (
+                <div className="second-sub-menu-box">
+                  <p className="second-sub-menu-link">View Copyright</p>
+                  <p className="second-sub-menu-link">Add New Copyright</p>
                 </div>
               )}
             </div>
-            // </div>
           )}
         </div>
 
-        {/* Computer */}
+        {/* FDP */}
         <div className="side-bar-menu-box">
           <div
             className="side-bar-link"
-            onClick={() => toggleDropdown("computer")}
+            onClick={() => toggleDropdown("fdp")}
           >
             <RiComputerFill className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>Computer</p>
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>FDP/STTP</p>
             <span
               className="down-arrow"
               style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -146,7 +296,7 @@ const Sidebar = () => {
                 className="down-arrow-icon"
                 style={{
                   transform:
-                    openDropdown === "computer"
+                    openDropdown === "fdp"
                       ? "rotate(180deg)"
                       : "rotate(0deg)",
                 }}
@@ -154,13 +304,13 @@ const Sidebar = () => {
             </span>
           </div>
 
-          {openDropdown === "computer" && (
+          {openDropdown === "fdp" && (
             <div className="sub-menu-box">
               <div
                 className="sub-menu-link"
-                onClick={() => toggleSubMenu("pc1")}
+                onClick={() => toggleSubSubMenu("viewFDP")}
               >
-                <p>PC 1</p>
+                <p>View FDP/STTP</p>
                 <span
                   className="down-arrow"
                   style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -169,7 +319,7 @@ const Sidebar = () => {
                     className="down-arrow-icon"
                     style={{
                       transform:
-                        openSubMenu === "pc1"
+                        openSubSubMenu === "viewFDP"
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                     }}
@@ -177,27 +327,52 @@ const Sidebar = () => {
                 </span>
               </div>
 
-              {openSubMenu === "pc1" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">PC 1 content 1 </p>
-                  <p className="second-sub-menu-link">PC 1 content 2</p>
+              {openSubSubMenu === "viewFDP" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">Detailed View</p>
+                  <p className="third-sub-menu-link">Summary View</p>
                 </div>
               )}
-              <p className="sub-menu-link">PC 2</p>
+
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubSubMenu("addFDP")}
+              >
+                <p>Add New FDP/STTP</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                  <IoIosArrowDown
+                    className="down-arrow-icon"
+                    style={{
+                      transform:
+                        openSubSubMenu === "addFDP"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                  />
+                </span>
+              </div>
+
+              {openSubSubMenu === "addFDP" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">FDP/STTP Form</p>
+                  <p className="third-sub-menu-link">Upload Documents</p>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        {/* Shared */}
+        {/* SDP */}
         <div className="side-bar-menu-box">
           <div
             className="side-bar-link"
-            onClick={() => toggleDropdown("shared")}
+            onClick={() => toggleDropdown("sdp")}
           >
-            <FaShareAltSquare className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>
-              Shared with me
-            </p>
+            <RiComputerFill className="side-bar-link-icon" />
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>SDP</p>
             <span
               className="down-arrow"
               style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -206,7 +381,7 @@ const Sidebar = () => {
                 className="down-arrow-icon"
                 style={{
                   transform:
-                    openDropdown === "shared"
+                    openDropdown === "sdp"
                       ? "rotate(180deg)"
                       : "rotate(0deg)",
                 }}
@@ -214,48 +389,55 @@ const Sidebar = () => {
             </span>
           </div>
 
-          {openDropdown === "shared" && (
+          {openDropdown === "sdp" && (
             <div className="sub-menu-box">
               <div
                 className="sub-menu-link"
-                onClick={() => toggleSubMenu("sharedFile1")}
+                onClick={() => toggleSubSubMenu("viewSDP")}
               >
-                <p>Shared File 1</p>
+                <p>View SDP</p>
                 <span
                   className="down-arrow"
                   style={{ display: sideBarOpen ? "flex" : "none" }}
-                >
-                  <IoIosArrowDown
-                    className="down-arrow-icon"
-                    style={{
-                      transform:
-                        openSubMenu === "sharedFile1"
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                    }}
-                  />
-                </span>
+                ></span>
               </div>
 
-              {openSubMenu === "sharedFile1" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">Shared content 1 </p>
-                  <p className="second-sub-menu-link">Shared content 2</p>
+              {openSubSubMenu === "viewSDP" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">Detailed View</p>
+                  <p className="third-sub-menu-link">Summary View</p>
                 </div>
               )}
-              <p className="sub-menu-link">Shared File 2</p>
+
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubSubMenu("addSDP")}
+              >
+                <p>Add New SDP</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                ></span>
+              </div>
+
+              {openSubSubMenu === "addSDP" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">SDP Form</p>
+                  <p className="third-sub-menu-link">Upload Documents</p>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        {/* Starred */}
+        {/* Achievements */}
         <div className="side-bar-menu-box">
           <div
             className="side-bar-link"
-            onClick={() => toggleDropdown("starred")}
+            onClick={() => toggleDropdown("Achievements")}
           >
-            <VscDebugStart className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>Starred</p>
+            <RiComputerFill className="side-bar-link-icon" />
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>Achievements</p>
             <span
               className="down-arrow"
               style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -264,7 +446,7 @@ const Sidebar = () => {
                 className="down-arrow-icon"
                 style={{
                   transform:
-                    openDropdown === "starred"
+                    openDropdown === "Achievements"
                       ? "rotate(180deg)"
                       : "rotate(0deg)",
                 }}
@@ -272,13 +454,13 @@ const Sidebar = () => {
             </span>
           </div>
 
-          {openDropdown === "starred" && (
+          {openDropdown === "Achievements" && (
             <div className="sub-menu-box">
               <div
                 className="sub-menu-link"
-                onClick={() => toggleSubMenu("starredFile1")}
+                onClick={() => toggleSubSubMenu("viewAchievements")}
               >
-                <p>Starred File 1</p>
+                <p>View Achievements</p>
                 <span
                   className="down-arrow"
                   style={{ display: sideBarOpen ? "flex" : "none" }}
@@ -287,7 +469,7 @@ const Sidebar = () => {
                     className="down-arrow-icon"
                     style={{
                       transform:
-                        openSubMenu === "starredFile1"
+                        openSubSubMenu === "viewAchievements"
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                     }}
@@ -295,23 +477,42 @@ const Sidebar = () => {
                 </span>
               </div>
 
-              {openSubMenu === "starredFile1" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">Starred content 1 </p>
-                  <p className="second-sub-menu-link">Starred content 2</p>
+              {openSubSubMenu === "viewAchievements" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">Detailed View</p>
+                  <p className="third-sub-menu-link">Summary View</p>
                 </div>
               )}
-              <p className="sub-menu-link">Starred File 2</p>
+
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubSubMenu("addAchievements")}
+              >
+                <p>Add New Achievements</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                  <IoIosArrowDown
+                    className="down-arrow-icon"
+                    style={{
+                      transform:
+                        openSubSubMenu === "addAchievements"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                  />
+                </span>
+              </div>
+
+              {openSubSubMenu === "addAchievements" && (
+                <div className="third-sub-menu-box">
+                  <p className="third-sub-menu-link">Achievement Form</p>
+                  <p className="third-sub-menu-link">Upload Certificates</p>
+                </div>
+              )}
             </div>
           )}
-        </div>
-
-        {/* Bin */}
-        <div className="side-bar-menu-box">
-          <div className="side-bar-link">
-            <FaTrashAlt className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>Bin</p>
-          </div>
         </div>
       </div>
     </div>

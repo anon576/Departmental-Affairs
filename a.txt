@@ -1,0 +1,54 @@
+ <div className="side-bar-menu-box">
+          <div
+            className="side-bar-link"
+            onClick={() => toggleDropdown("Achievements")}
+          >
+            <RiComputerFill className="side-bar-link-icon" />
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>Achievements</p>
+            <span
+              className="down-arrow"
+              style={{ display: sideBarOpen ? "flex" : "none" }}
+            >
+              <IoIosArrowDown
+                className="down-arrow-icon"
+                style={{
+                  transform:
+                    openDropdown === "Achievements"
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+              />
+            </span>
+          </div>
+
+          {openDropdown === "Achievements" && (
+            <div className="sub-menu-box">
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubMenu("pc1")}
+              >
+                <p>View Achievements</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                
+                </span>
+              </div>
+
+              <div
+                className="sub-menu-link"
+                onClick={() => toggleSubMenu("pc1")}
+              >
+                <p>Add New Achievements</p>
+                <span
+                  className="down-arrow"
+                  style={{ display: sideBarOpen ? "flex" : "none" }}
+                >
+                
+                </span>
+              </div>
+             
+            </div>
+          )}
+        </div>
