@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  top: 0;
+  left: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.homepage {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: url("../../images/ycce.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.logo-container {
+  width: 100vw;
+  height: 100px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.logo-img-container {
+  width: 100px;
+}
+
+.logo-img {
+  width: 100%;
+}
+
+.login-main-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-direction: column; */
+}
+
+.login-container {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid ; */
+  padding: 20px;
+  background-color: #a9a8a8d1;
+  border-radius: 10px;
+  /* text-align: center; */
+}
+
+.login-header {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  padding-bottom: 20px;
+}
+
+.login-header-button {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  gap: 5px;
+}
+
+.header-button {
+  font-size: 1rem;
+  padding: 5px;
+  width: 100%;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 500;
+  /* border: none; */
+  outline: none;
+}
+
+.selected-role {
+  background-color: gray;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-inputs input {
+  padding: 8px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.login-inputs input:focus {
+  outline: 2px solid rgb(56, 56, 56);
+}
+
+.login-input-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-inputs button {
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: 550;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.1s;
+}
+
+.login-inputs button:hover {
+  box-shadow: 0 0 5px black;
+}
+
+.login-inputs button:active {
+  transform: scale(0.96);
+}
+
+.error-message {
+  font-size: 15px;
+  color: #d70603;
+}
