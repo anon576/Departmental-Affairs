@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../../images/logo2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import { IoHome } from "react-icons/io5";
 import { FaBell } from "react-icons/fa6";
@@ -9,8 +9,15 @@ import { FaUserCircle, FaArrowRight, FaRegUser } from "react-icons/fa";
 const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleProfileOpen = () => {
     setProfileOpen(!profileOpen);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
   };
 
   return (
@@ -22,7 +29,7 @@ const Navbar = () => {
       </div>
 
       <div className="nav-bar-buttons">
-        <Link className="nav-bar-link">
+        <Link to='/faculty' className="nav-bar-link" >
           <IoHome className="nav-bar-button" />
           <p>Home</p>
         </Link>
@@ -53,7 +60,9 @@ const Navbar = () => {
               <FaArrowRight className="arrow-icon" />
             </Link>
 
-            <button className="logout-button">Logout</button>
+            <button className="logout-button" onClick={logout}>
+              Logout
+            </button>
           </div>
         </div>
         <div

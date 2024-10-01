@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./sidebar.css";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { SiProtondrive } from "react-icons/si";
 import { RiComputerFill } from "react-icons/ri";
-import { FaShareAltSquare, FaTrashAlt } from "react-icons/fa";
-import { VscDebugStart } from "react-icons/vsc";
+import { GiArchiveResearch } from "react-icons/gi";
+import { GrAchievement } from "react-icons/gr";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaUserCircle } from "react-icons/fa";
+import { AppContext } from "../../Context/AppContext";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const [sideBarOpen, setSideBarOpen] = useState(true);
+  const { sideBarOpen, setSideBarOpen, toggleSidebar } = useContext(AppContext);
   const [openDropdown, setOpenDropdown] = useState(null); // For main dropdowns
   const [openSubMenu, setOpenSubMenu] = useState(null); // For second-level sub-menus
   const [openSubSubMenu, setOpenSubSubMenu] = useState(null); // For third-level sub-menus
 
   const handleSideBarOpen = () => {
-    setSideBarOpen(!sideBarOpen);
+    toggleSidebar();
     setOpenDropdown(null);
     setOpenSubMenu(null);
     setOpenSubSubMenu(null);
@@ -51,6 +54,47 @@ const Sidebar = () => {
           style={{ transform: sideBarOpen ? "rotate(0deg)" : "rotate(180deg)" }}
         />
       </div>
+
+      <div className="side-bar-profile-box">
+        <div className="side-bar-profile-header">
+          <div className="side-bar-profile-img">
+            <FaUserCircle />
+          </div>
+          <div
+            className="side-bar-profile-name"
+            style={{ display: sideBarOpen ? "block" : "none" }}
+          >
+            <p>Mr. Chaitanya Ravindra Choudhari</p>
+          </div>
+        </div>
+
+        <div
+          className="side-bar-profile-education-details"
+          style={{ display: sideBarOpen ? "block" : "none" }}
+        >
+          <div className="side-bar-profile-content">
+            <p>Id:</p>
+            <p>QWER1234567890</p>
+          </div>
+          <div className="side-bar-profile-content">
+            <p>Department:</p>
+            <p>Inforamtion Technology</p>
+          </div>
+          <div className="side-bar-profile-content">
+            <p>Degree:</p>
+            <p>B.Tech</p>
+          </div>
+          <div className="side-bar-profile-content">
+            <p>Passing Year:</p>
+            <p>2021</p>
+          </div>
+
+          <div className="side-bar-profile-content">
+            <Link>View Detail</Link>
+          </div>
+        </div>
+      </div>
+
       <div className="side-bar-content">
         {/* My Drive */}
         <div className="side-bar-menu-box">
@@ -58,7 +102,7 @@ const Sidebar = () => {
             className="side-bar-link"
             onClick={() => toggleDropdown("myDrive")}
           >
-            <SiProtondrive className="side-bar-link-icon" />
+            <GiArchiveResearch className="side-bar-link-icon" />
             <p style={{ display: sideBarOpen ? "block" : "none" }}>Research</p>
             <span
               className="down-arrow"
@@ -134,14 +178,15 @@ const Sidebar = () => {
                       >
                         View Conference
                       </p>
-                      <p
+                      <Link
+                        to="/addconferance"
                         className="third-sub-menu-link"
                         onClick={() => {
                           /* Add your Add Conference action here */
                         }}
                       >
                         Add Conference
-                      </p>
+                      </Link>
                     </div>
                   )}
 
@@ -282,10 +327,7 @@ const Sidebar = () => {
 
         {/* FDP */}
         <div className="side-bar-menu-box">
-          <div
-            className="side-bar-link"
-            onClick={() => toggleDropdown("fdp")}
-          >
+          <div className="side-bar-link" onClick={() => toggleDropdown("fdp")}>
             <RiComputerFill className="side-bar-link-icon" />
             <p style={{ display: sideBarOpen ? "block" : "none" }}>FDP/STTP</p>
             <span
@@ -296,9 +338,7 @@ const Sidebar = () => {
                 className="down-arrow-icon"
                 style={{
                   transform:
-                    openDropdown === "fdp"
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    openDropdown === "fdp" ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               />
             </span>
@@ -367,10 +407,7 @@ const Sidebar = () => {
 
         {/* SDP */}
         <div className="side-bar-menu-box">
-          <div
-            className="side-bar-link"
-            onClick={() => toggleDropdown("sdp")}
-          >
+          <div className="side-bar-link" onClick={() => toggleDropdown("sdp")}>
             <RiComputerFill className="side-bar-link-icon" />
             <p style={{ display: sideBarOpen ? "block" : "none" }}>SDP</p>
             <span
@@ -381,9 +418,7 @@ const Sidebar = () => {
                 className="down-arrow-icon"
                 style={{
                   transform:
-                    openDropdown === "sdp"
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    openDropdown === "sdp" ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               />
             </span>
@@ -436,8 +471,10 @@ const Sidebar = () => {
             className="side-bar-link"
             onClick={() => toggleDropdown("Achievements")}
           >
-            <RiComputerFill className="side-bar-link-icon" />
-            <p style={{ display: sideBarOpen ? "block" : "none" }}>Achievements</p>
+            <GrAchievement className="side-bar-link-icon" />
+            <p style={{ display: sideBarOpen ? "block" : "none" }}>
+              Achievements
+            </p>
             <span
               className="down-arrow"
               style={{ display: sideBarOpen ? "flex" : "none" }}

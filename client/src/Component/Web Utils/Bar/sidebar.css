@@ -51,6 +51,10 @@
   gap: 10px;
   padding-top: 10px;
 }
+.side-bar-content a {
+  text-decoration: none;
+  color: black;
+}
 
 .side-bar-link {
   padding: 5px 10px;
@@ -99,28 +103,76 @@
 
 .second-sub-menu-box {
   padding: 0 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.sub-menu-link{
+.sub-menu-link {
   display: flex;
 }
 
 .second-sub-menu-link {
-  padding: 10px 5px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+}
+
+.second-sub-menu-link:hover {
+  background-color: rgba(128, 128, 128, 0.686);
+}
+
+.third-sub-menu-box {
+  padding: 5px;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.third-sub-menu-link {
+  padding: 5px;
   cursor: pointer;
 }
 
-
-.second-sub-menu-link::after {
+.third-sub-menu-link::after {
   content: "";
   display: block;
   position: relative;
   width: 0;
   height: 1px;
   background-color: black;
-  transition: width .2s;
+  transition: width 0.2s;
 }
 
-.second-sub-menu-link:hover::after{
+.third-sub-menu-link:hover::after {
   width: 100%;
+}
+
+.side-bar-profile-box {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+}
+
+.side-bar-profile-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.side-bar-profile-img {
+  font-size: 1.5rem;
+}
+
+.side-bar-profile-education-details {
+  padding-top: 5px;
+}
+
+.side-bar-profile-content {
+  display: flex;
+  padding-top: 5px;
+  gap: 5px;
+}
+
+.side-bar-profile-content p:first-child {
+  font-weight: 550;
 }

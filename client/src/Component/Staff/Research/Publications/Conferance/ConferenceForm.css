@@ -1,197 +1,236 @@
-/* src/ConferenceForm.css */
+.conference-form-main-container {
+  width: calc(100vw - 50px- 10px);
+  margin-left: 50px;
+  margin-top: 80px;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .conference-form-main-container {
+    margin-top: 130px;
+  }
+}
+
+.conference-form-open {
+  width: calc(100vw - 350px);
+  margin-left: 300px;
+}
 
 .conference-form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  }
-  
-  .conference-form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  form .form-group {
-    margin-bottom: 15px;
-  }
-  
-  form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .required {
-    color: red;
-    margin-left: 2px;
-  }
-  
-  form input[type="text"],
-  form input[type="number"],
-  form input[type="date"],
-  form select,
-  form input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-  }
-  
-  .radio-group,
-  .checkbox-group {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .author-input {
-    margin-bottom: 10px;
-  }
-  
-  .error {
-    border: 1px solid red;
-  }
-  
-  .error-message {
-    color: red;
-    font-size: 0.875em;
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
+  width: 600px;
+  max-width: 600px;
+  /* margin: 0 auto; */
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  border: 1px solid gray;
+}
 
-  /* src/components/ConferencesList.css */
+.conference-form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form .form-group {
+  margin-bottom: 15px;
+}
+
+form label {
+  font-size: 1rem;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.required {
+  color: red;
+  margin-left: 2px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form select,
+form input[type="file"] {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.radio-group,
+.checkbox-group {
+  display: flex;
+  gap: 15px;
+}
+
+.checkbox-group label{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.radio-group label{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.author-input {
+  margin-bottom: 10px;
+}
+
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #23d5d5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  font-size: 1rem;
+  transition: all .1s;
+}
+
+.submit-button:hover {
+  transform: scale(.96);
+}
+
+.submit-button:active {
+  transform: scale(1);
+}
+
+/* src/components/ConferencesList.css */
 
 .conferences-list-container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-  }
-  
-  .conferences-list-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .add-conference-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 15px;
-  }
-  
-  .add-conference-button:hover {
-    background-color: #218838;
-  }
-  
-  .conferences-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .conferences-table th,
-  .conferences-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .conferences-table th {
-    background-color: #f2f2f2;
-  }
-  
-  .view-button,
-  .update-button,
-  .delete-button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .view-button {
-    background-color: #17a2b8;
-    color: white;
-  }
-  
-  .view-button:hover {
-    background-color: #138496;
-  }
-  
-  .update-button {
-    background-color: #ffc107;
-    color: white;
-  }
-  
-  .update-button:hover {
-    background-color: #e0a800;
-  }
-  
-  .delete-button {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333;
-  }
-  
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
 
-  /* src/components/ViewConference.css */
+.conferences-list-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-conference-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.add-conference-button:hover {
+  background-color: #218838;
+}
+
+.conferences-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.conferences-table th,
+.conferences-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.conferences-table th {
+  background-color: #f2f2f2;
+}
+
+.view-button,
+.update-button,
+.delete-button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-button {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.view-button:hover {
+  background-color: #138496;
+}
+
+.update-button {
+  background-color: #ffc107;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* src/components/ViewConference.css */
 
 .view-conference-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-  }
-  
-  .view-conference-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .conference-details p {
-    margin: 10px 0;
-  }
-  
-  .conference-details ul {
-    list-style-type: disc;
-    margin-left: 20px;
-  }
-  
-  .back-button {
-    background-color: #6c757d;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .back-button:hover {
-    background-color: #5a6268;
-  }
-  
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.view-conference-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.conference-details p {
+  margin: 10px 0;
+}
+
+.conference-details ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.back-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
+}
