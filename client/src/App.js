@@ -11,30 +11,36 @@ import Navbar from "./Component/Web Utils/Bar/Navbar";
 import Sidebar from "./Component/Web Utils/Bar/Sidebar";
 import "./App.css";
 import ProtectedRoute from "./Component/Home/ProtectedRoute";
+import { AppProvider } from "./Component/Context/AppContext"; // Import the generalized AppContext
+import AddConferance from "./Component/Staff/Research/Publications/Conferance/AddConferance";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <LayoutWithNavbarAndSidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {/* Protect /faculty route */}
-          <Route
-            path="/faculty"
-            element={<ProtectedRoute element={StaffLayout} />}
-          />
-        </Routes>
-      </Router>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <Router>
+          <LayoutWithNavbarAndSidebar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/faculty"
+              element={<ProtectedRoute element={StaffLayout} />}
+            />
+
+            <Route
+              path="/addconferance"
+              element={<ProtectedRoute element={AddConferance} />}
+            />
+          </Routes>
+        </Router>
+      </div>
+    </AppProvider>
   );
 }
 
-// Custom layout component to conditionally show Navbar and Sidebar
 const LayoutWithNavbarAndSidebar = () => {
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
-  // Conditionally render Navbar and Sidebar only if NOT on the homepage
   return location.pathname !== "/" ? (
     <>
       <Navbar />

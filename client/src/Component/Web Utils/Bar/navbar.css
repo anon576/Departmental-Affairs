@@ -1,4 +1,5 @@
 .navbar-container {
+  position: fixed;
   width: 100vw;
   height: 80px;
   box-shadow: 0 0 5px gray;
