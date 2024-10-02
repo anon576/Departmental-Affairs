@@ -116,7 +116,7 @@ form input[type="file"] {
 
 /* src/components/ConferencesList.css */
 
-.conferences-list-container {
+/* .conferences-list-container {
   max-width: 900px;
   margin: 20px auto;
   padding: 20px;
@@ -195,11 +195,11 @@ form input[type="file"] {
 
 .delete-button:hover {
   background-color: #c82333;
-}
+} */
 
 /* src/components/ViewConference.css */
 
-.view-conference-container {
+/* .view-conference-container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
@@ -233,4 +233,4 @@ form input[type="file"] {
 
 .back-button:hover {
   background-color: #5a6268;
-}
+} */

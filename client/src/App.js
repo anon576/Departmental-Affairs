@@ -12,7 +12,10 @@ import Sidebar from "./Component/Web Utils/Bar/Sidebar";
 import "./App.css";
 import ProtectedRoute from "./Component/Home/ProtectedRoute";
 import { AppProvider } from "./Component/Context/AppContext"; // Import the generalized AppContext
-import AddConferance from "./Component/Staff/Research/Publications/Conferance/AddConferance";
+import ViewConference from "./Component/Staff/Research/Publications/Conferance/ViewConferance";
+import ConferencesList from "./Component/Staff/Research/Publications/Conferance/ConferencesList";
+import AddConference from "./Component/Staff/Research/Publications/Conferance/AddConference";
+import UpdateConference from "./Component/Staff/Research/Publications/Conferance/UpdateConferance";
 
 function App() {
   return (
@@ -28,8 +31,23 @@ function App() {
             />
 
             <Route
-              path="/addconferance"
-              element={<ProtectedRoute element={AddConferance} />}
+              path="/add/conference"
+              element={<ProtectedRoute element={AddConference} />}
+            />
+
+            <Route
+              path="/conference/list"
+              element={<ProtectedRoute element={ConferencesList} />}
+            />
+
+            <Route
+              path="/conferences/view/:id"
+              element={<ProtectedRoute element={ViewConference} />}
+            />
+
+            <Route
+              path="/conferences/update/:id"
+              element={<ProtectedRoute element={UpdateConference} />}
             />
           </Routes>
         </Router>

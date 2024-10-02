@@ -170,16 +170,17 @@ const Sidebar = () => {
 
                   {openSubSubMenu === "conference" && (
                     <div className="third-sub-menu-box">
-                      <p
+                      <Link
+                        to="/conference/list"
                         className="third-sub-menu-link"
                         onClick={() => {
                           /* Add your View Conference action here */
                         }}
                       >
                         View Conference
-                      </p>
+                      </Link>
                       <Link
-                        to="/addconferance"
+                        to="/add/conference"
                         className="third-sub-menu-link"
                         onClick={() => {
                           /* Add your Add Conference action here */

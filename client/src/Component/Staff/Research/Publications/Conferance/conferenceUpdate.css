@@ -1,0 +1,28 @@
+.conference-upadate-main-container {
+  width: calc(100% - 300px);
+  margin-left: 300px;
+  margin-top: 80px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conference-update-form {
+  width: 50%;
+  padding: 20px;
+  box-shadow: 0 0 10px gray;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 5px;
+}
+
+.conference-update-form h2 {
+  text-align: center;
+}
+
+.error-message{
+    color: red;
+    font-size: 15px;
+}

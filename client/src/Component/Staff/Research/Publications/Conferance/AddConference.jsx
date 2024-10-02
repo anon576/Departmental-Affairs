@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppContext } from "../../../../Context/AppContext";
 
-const AddConferance = () => {
+const AddConference = () => {
   const [formData, setFormData] = useState({
     conferenceName: "",
     venue: "",
@@ -449,4 +449,4 @@ const AddConferance = () => {
   );
 };
 
-export default AddConferance;
+export default AddConference;

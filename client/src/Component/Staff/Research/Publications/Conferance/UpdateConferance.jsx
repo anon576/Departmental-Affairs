@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import "./conferenceUpdate.css";
 
 const UpdateConference = () => {
   const { id } = useParams(); // Assume the conference id is passed via the URL
@@ -57,7 +58,10 @@ const UpdateConference = () => {
 
     // Validate form data
     if (!conferenceData.conferenceName) {
-      setErrors((prev) => ({ ...prev, conferenceName: "Conference name is required" }));
+      setErrors((prev) => ({
+        ...prev,
+        conferenceName: "Conference name is required",
+      }));
       return;
     }
 
@@ -90,9 +94,9 @@ const UpdateConference = () => {
   };
 
   return (
-    <div>
-      <h2>Update Conference</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="conference-upadate-main-container">
+      <form onSubmit={handleSubmit} className="conference-update-form" encType="multipart/form-data">
+        <h2>Update Conference</h2>
         <div>
           <label>Conference Name</label>
           <input
@@ -101,7 +105,9 @@ const UpdateConference = () => {
             value={conferenceData.conferenceName}
             onChange={handleChange}
           />
-          {errors.conferenceName && <p style={{ color: "red" }}>{errors.conferenceName}</p>}
+          {errors.conferenceName && (
+            <p className="error-message">{errors.conferenceName}</p>
+          )}
         </div>
 
         <div>
@@ -213,7 +219,7 @@ const UpdateConference = () => {
           />
         </div>
 
-        <button type="submit">Update Conference</button>
+        <button type="submit" className="submit-button">Update Conference</button>
         {errors.submit && <p style={{ color: "red" }}>{errors.submit}</p>}
       </form>
     </div>
