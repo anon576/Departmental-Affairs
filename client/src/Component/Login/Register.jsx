@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import banner from "../../images/banner.png";
-import "./homeStyle.css";
-import axios from "axios";  
-import {BACKEND_API} from '../constant'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import  {BACKEND_API} from '../constant'
 
-const Home = () => {
+const Register = () => {
   const [role, setRole] = useState("faculty");
   const navigate = useNavigate();
 
@@ -24,32 +23,19 @@ const Home = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(BACKEND_API+"/auth/login", {
-        email: data.username,  // Mapping form's username field to email for the login API
-        password: data.password,
+      const response = await axios.post(BACKEND_API+"/auth/register", {
+        ...data,
+        role,  // Add the role to the submitted data
       });
-
       if (response.data.success) {
-        console.log("Login successful:", response.data);
-        localStorage.setItem("authToken", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-
-        
-        // Redirect based on user role
-        if (response.data.user.role === "faculty") {
-          navigate("/faculty");
-        } else if (response.data.user.role === "hod") {
-          navigate("/hod");
-        } else if (response.data.user.role === "admin") {
-          navigate("/admin");
-        }
-
+        console.log("User registered successfully:", response.data);
+        navigate("/");
         reset();
       } else {
-        console.error("Login failed:", response.data.message);
+        console.error("Registration failed:", response.data.message);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("Error registering user:", error);
     }
   };
 
@@ -64,7 +50,7 @@ const Home = () => {
       <div className="login-main-container">
         <div className="login-container">
           <div className="login-header">
-            <h3>Welcome! Please login to continue.</h3>
+            <h3>Welcome! Please register to continue.</h3>
           </div>
           <div className="login-header-button">
             <button
@@ -99,9 +85,20 @@ const Home = () => {
                 <div className="login-inputs">
                   <div className="login-input-field">
                     <input
-                      type="email"  // Changed to email since login requires email
+                      type="text"
+                      placeholder="Enter name"
+                      {...register("name", { required: "Name is required" })}
+                    />
+                    {errors.name && (
+                      <p className="error-message">{errors.name.message}</p>
+                    )}
+                  </div>
+
+                  <div className="login-input-field">
+                    <input
+                      type="email"
                       placeholder="Enter email"
-                      {...register("username", {
+                      {...register("email", {
                         required: "Email is required",
                         pattern: {
                           value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -109,8 +106,8 @@ const Home = () => {
                         },
                       })}
                     />
-                    {errors.username && (
-                      <p className="error-message">{errors.username.message}</p>
+                    {errors.email && (
+                      <p className="error-message">{errors.email.message}</p>
                     )}
                   </div>
 
@@ -132,11 +129,39 @@ const Home = () => {
                     )}
                   </div>
 
+                  <div className="login-input-field">
+                    <input
+                      type="text"
+                      placeholder="Enter department"
+                      {...register("department", {
+                        required: "Department is required",
+                      })}
+                    />
+                    {errors.department && (
+                      <p className="error-message">
+                        {errors.department.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="login-input-field">
+                    <input
+                      type="text"
+                      placeholder="Enter employee ID"
+                      {...register("employeeId", {
+                        required: "Employee ID is required",
+                      })}
+                    />
+                    {errors.employeeId && (
+                      <p className="error-message">
+                        {errors.employeeId.message}
+                      </p>
+                    )}
+                  </div>
+
                   <button type="submit">
-                    Login as {role.charAt(0).toUpperCase() + role.slice(1)}
+                    Register as {role.charAt(0).toUpperCase() + role.slice(1)}
                   </button>
-                  <a href="#">Forget password?</a>
-                  <Link to="/register">Register</Link>
                 </div>
               </div>
             </form>
@@ -147,4 +172,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Register;

@@ -1,46 +1,32 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./viewConference.css";
 
 const ViewConference = () => {
-  const { id } = useParams();
-  const [conference, setConference] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+	const { conferenceData } = location.state || {};
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchConference();
-  }, [id]);
-
-  const fetchConference = async () => {
-    const sampleConferences = {
-      _id: "1",
-      conferenceName: "AI Innovations 2024",
-      paperTitle: "Deep Learning in Healthcare",
-      indexed: ["IEEE", "Springer"],
-      date: "2024-11-05",
-      location: "New York, USA",
-      status: "Upcoming",
-      venue: "Some Venue",
-      registrationFee: 200,
-      attended: true,
-      authors: ["John Doe", "Jane Smith"],
-      publishedPaperUrl: "https://example.com/paper",
-    };
-
-    setConference(sampleConferences);
+    // Set loading state to true before processing the data
+    setLoading(true);
+    // You can add any additional logic if needed
     setLoading(false); // Stop loading once data is set
-  };
+  }, [conferenceData]);
 
   if (loading) {
     return <p>Loading conference details...</p>;
   }
 
-  if (!conference) {
+  if (!conferenceData) {
     return <p>Conference not found.</p>;
   }
+
+  // Convert authors and indexed string to array
+  const authors = JSON.parse(conferenceData.authors);
+
 
   return (
     <div className="conference-view-main-container">
@@ -48,47 +34,41 @@ const ViewConference = () => {
         <h2>Conference Details</h2>
         <div className="conference-details">
           <p>
-            <strong>Name of Conference:</strong> {conference.conferenceName}
+            <strong>Name of Conference:</strong> {conferenceData.conferenceName}
           </p>
           <p>
-            <strong>Venue:</strong> {conference.venue}
+            <strong>Venue:</strong> {conferenceData.venue}
           </p>
           <p>
             <strong>Date:</strong>{" "}
-            {new Date(conference.date).toLocaleDateString()}
+            {new Date(conferenceData.conferenceDate).toLocaleDateString()}
           </p>
           <p>
-            <strong>Registration Fee:</strong> ${conference.registrationFee}
+            <strong>Registration Fee:</strong> ${conferenceData.registrationFee}
           </p>
           <p>
-            <strong>Attended:</strong> {conference.attended ? "Yes" : "No"}
+            <strong>Attended Mode:</strong> {conferenceData.attendedMode}
           </p>
           <p>
             <strong>Authors:</strong>
           </p>
           <ul>
-            {conference.authors.map((author, index) => (
+            {authors.map((author, index) => (
               <li key={index}>{author}</li>
             ))}
           </ul>
           <p>
-            <strong>Title of Paper:</strong> {conference.paperTitle}
+            <strong>Title of Paper:</strong> {conferenceData.paperTitle}
           </p>
           <p>
-            <strong>Status:</strong> {conference.status}
+            <strong>Status:</strong> {conferenceData.paperStatus}
           </p>
           <p>
-            <strong>Indexed:</strong> {conference.indexed.join(", ")}
+            <strong>Indexed:</strong> {conferenceData.indexed}
           </p>
           <p>
-            <strong>Published Paper:</strong>{" "}
-            <a
-              href={conference.publishedPaperUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Paper
-            </a>
+            <strong>Created At:</strong>{" "}
+            {new Date(conferenceData.createdAt).toLocaleDateString()}
           </p>
         </div>
         <div className="view-conference-buttons">
@@ -98,7 +78,7 @@ const ViewConference = () => {
 
           <button
             className="back-button"
-            onClick={() => navigate(`/conferences/update/${conference._id}`)}
+            onClick={() => navigate(`/conferences/update/${conferenceData.conferenceID}`)}
           >
             Update
           </button>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {useLocation} from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom";
 import "./conferenceUpdate.css";
+import { BACKEND_API } from "../../../../constant";
 
 const UpdateConference = () => {
-  const { id } = useParams(); // Assume the conference id is passed via the URL
+  const location = useLocation();
+	const { conference } = location.state || {};
   const [conferenceData, setConferenceData] = useState({
     conferenceName: "",
     venue: "",
@@ -21,21 +24,44 @@ const UpdateConference = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch existing conference data to pre-fill the form
-    fetchConferenceData();
-  }, []);
-
-  const fetchConferenceData = async () => {
-    try {
-      const response = await axios.get(`/api/conferences/${id}`); // Replace with your API endpoint
-      const { authors } = response.data;
-      setConferenceData(response.data);
-      setNumAuthors(authors.length);
-    } catch (error) {
-      console.error("Error fetching conference data", error);
+  const convertDateFormat = (inputDate) => {
+    const date = new Date(inputDate);
+    if (isNaN(date.getTime())) {
+        console.error('Invalid date:', inputDate);
+        return 'Invalid Date';
     }
-  };
+    // Format the date as yyyy-MM-dd
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+};
+
+useEffect(() => {
+  if (conference) {
+    const authorsArray = JSON.parse(conference.authors || "[]");
+
+    setConferenceData(prevData => ({
+      ...prevData,
+      conferenceName: conference.conferenceName || "",
+      venue: conference.venue || "",
+      date: conference.conferenceDate ? convertDateFormat(conference.conferenceDate) : "",
+      registrationFee: conference.registrationFee || "",
+      attended: conference.attendedMode || "",
+      authors: authorsArray, // Ensure authors is an array
+      paperTitle: conference.paperTitle || "",
+      status: conference.paperStatus || "",
+      indexed: conference.indexed || "",
+      publishedPaper: conference.publishedPaper || null,
+    }));
+
+    setNumAuthors(authorsArray.length);
+  }
+}, [conference]);
+
+
+ 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,29 +90,31 @@ const UpdateConference = () => {
       }));
       return;
     }
+ 
 
     const formData = new FormData();
     formData.append("conferenceName", conferenceData.conferenceName);
     formData.append("venue", conferenceData.venue);
-    formData.append("date", conferenceData.date);
+    formData.append("conferenceDate", conferenceData.date);
     formData.append("registrationFee", conferenceData.registrationFee);
-    formData.append("attended", conferenceData.attended);
+    formData.append("attendedMode", conferenceData.attended);
     formData.append("authors", JSON.stringify(conferenceData.authors));
     formData.append("paperTitle", conferenceData.paperTitle);
-    formData.append("status", conferenceData.status);
+    formData.append("paperStatus", conferenceData.status);
     formData.append("indexed", conferenceData.indexed);
     if (conferenceData.publishedPaper) {
       formData.append("publishedPaper", conferenceData.publishedPaper);
     }
 
     try {
-      await axios.put(`/api/conferences/${id}`, formData, {
+      const token = localStorage.getItem("authToken");
+      await axios.put(`${BACKEND_API}/conferences/update/${conference.conferenceID}`, formData, {
         headers: {
+          Authorization: `${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
       alert("Conference updated successfully");
-      navigate("/conferences");
     } catch (error) {
       console.error("Error updating conference", error);
       setErrors((prev) => ({ ...prev, submit: "Failed to update conference" }));
@@ -104,6 +132,7 @@ const UpdateConference = () => {
             name="conferenceName"
             value={conferenceData.conferenceName}
             onChange={handleChange}
+            required
           />
           {errors.conferenceName && (
             <p className="error-message">{errors.conferenceName}</p>
@@ -117,6 +146,7 @@ const UpdateConference = () => {
             name="venue"
             value={conferenceData.venue}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -125,8 +155,9 @@ const UpdateConference = () => {
           <input
             type="date"
             name="date"
-            value={conferenceData.date}
+            value={convertDateFormat(conferenceData.date)}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -137,6 +168,7 @@ const UpdateConference = () => {
             name="registrationFee"
             value={conferenceData.registrationFee}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -146,9 +178,10 @@ const UpdateConference = () => {
             name="attended"
             value={conferenceData.attended}
             onChange={handleChange}
+            required
           >
-            <option value="offline">Offline</option>
-            <option value="online">Online</option>
+            <option value="Offline">Offline</option>
+            <option value="Online">Online</option>
           </select>
         </div>
 
@@ -157,6 +190,7 @@ const UpdateConference = () => {
           <input
             type="number"
             value={numAuthors}
+            required
             onChange={(e) => setNumAuthors(Number(e.target.value))}
           />
         </div>
@@ -166,6 +200,7 @@ const UpdateConference = () => {
             <label>Author {index + 1}</label>
             <input
               type="text"
+              required
               value={conferenceData.authors[index] || ""}
               onChange={(e) => handleAuthorChange(index, e)}
             />
@@ -176,6 +211,7 @@ const UpdateConference = () => {
           <label>Title of Paper</label>
           <input
             type="text"
+            required
             name="paperTitle"
             value={conferenceData.paperTitle}
             onChange={handleChange}
@@ -186,6 +222,7 @@ const UpdateConference = () => {
           <label>Status</label>
           <select
             name="status"
+            required
             value={conferenceData.status}
             onChange={handleChange}
           >
@@ -199,6 +236,7 @@ const UpdateConference = () => {
           <label>Indexed</label>
           <select
             name="indexed"
+            required
             value={conferenceData.indexed}
             onChange={handleChange}
           >
@@ -209,15 +247,7 @@ const UpdateConference = () => {
           </select>
         </div>
 
-        <div>
-          <label>Upload Published Paper</label>
-          <input
-            type="file"
-            name="publishedPaper"
-            accept=".pdf,.doc,.docx"
-            onChange={handleFileChange}
-          />
-        </div>
+
 
         <button type="submit" className="submit-button">Update Conference</button>
         {errors.submit && <p style={{ color: "red" }}>{errors.submit}</p>}

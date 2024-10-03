@@ -1,10 +1,10 @@
-// src/ConferenceForm.jsx
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import "./ConferenceForm.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppContext } from "../../../../Context/AppContext";
+import { BACKEND_API } from "../../../../constant";
 
 const AddConference = () => {
   const [formData, setFormData] = useState({
@@ -105,9 +105,7 @@ const AddConference = () => {
       newErrors.publishedPaper = "Please upload the published paper.";
     } else {
       const allowedTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/pdf"
       ];
       if (!allowedTypes.includes(formData.publishedPaper.type)) {
         newErrors.publishedPaper = "Only PDF, DOC, and DOCX files are allowed.";
@@ -125,53 +123,65 @@ const AddConference = () => {
     e.preventDefault();
 
     if (!validate()) {
-      toast.error("Please fix the errors in the form.");
-      return;
+        toast.error("Please fix the errors in the form.");
+        return;
     }
+
+    // Fetch the auth token and userId from localStorage
+    const token = localStorage.getItem("authToken");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = storedUser.userId;
 
     // Prepare form data for submission
     const submissionData = new FormData();
     submissionData.append("conferenceName", formData.conferenceName);
     submissionData.append("venue", formData.venue);
-    submissionData.append("date", formData.date);
+    submissionData.append("conferenceDate", formData.date);
     submissionData.append("registrationFee", formData.registrationFee);
-    submissionData.append("attended", formData.attended);
+    submissionData.append("attendedMode", formData.attended);
     submissionData.append("authors", JSON.stringify(formData.authors));
     submissionData.append("paperTitle", formData.paperTitle);
-    submissionData.append("status", formData.status);
+    submissionData.append("paperStatus", formData.status);
     submissionData.append("indexed", JSON.stringify(formData.indexed));
     submissionData.append("publishedPaper", formData.publishedPaper);
+    submissionData.append("userId", userId); // Add userId to the submission data
 
     try {
-      const response = await axios.post("/api/conferences", submissionData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        const response = await axios.post(`${BACKEND_API}/conferences/add`, submissionData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `${token}` // Include auth token in headers
+            },
+        });
 
-      toast.success("Conference details submitted successfully!");
-      // Reset form
-      setFormData({
-        conferenceName: "",
-        venue: "",
-        date: "",
-        registrationFee: "",
-        attended: "",
-        numberOfAuthors: 1,
-        authors: [""],
-        paperTitle: "",
-        status: "",
-        indexed: [],
-        publishedPaper: null,
-      });
-      setErrors({});
-      // If needed, handle response data
-      console.log(response.data);
+        // Handle the response from the server
+        if (response.data.success) {
+            toast.success(response.data.message); // Display success message from response
+            // Reset form
+            setFormData({
+                conferenceName: "",
+                venue: "",
+                date: "",
+                registrationFee: "",
+                attended: "",
+                numberOfAuthors: 1,
+                authors: [""],
+                paperTitle: "",
+                status: "",
+                indexed: [],
+                publishedPaper: null,
+            });
+            setErrors({});
+            console.log(response.data.conferenceID); // Optionally handle conferenceID
+        } else {
+            toast.error(response.data.message || "Failed to submit conference details.");
+        }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to submit conference details. Please try again.");
+        console.error("Error submitting form:", error);
+        toast.error("Failed to submit conference details. Please try again.");
     }
-  };
+};
+
 
   return (
     <div

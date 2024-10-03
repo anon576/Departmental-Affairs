@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Logo from "../../../images/logo2.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
@@ -11,6 +11,14 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
   const handleProfileOpen = () => {
     setProfileOpen(!profileOpen);
   };
@@ -40,7 +48,7 @@ const Navbar = () => {
 
         <Link className="nav-bar-link" onClick={handleProfileOpen}>
           <FaUserCircle className="nav-bar-button" />
-          <p>Hi! Chaitanya</p>
+          <p>Hi!</p>
         </Link>
 
         <div

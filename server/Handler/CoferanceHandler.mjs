@@ -1,4 +1,4 @@
-import pool from '../Database/Database.mjs'
+import  pool from '../Database/Database.mjs'
 
 class ConferanceHandler{
     static addConferenceHandler = async (req, res) => {
@@ -16,7 +16,9 @@ class ConferanceHandler{
                 indexed,
                 userId
             } = req.body;
-
+            const indexedArray = JSON.parse(indexed);
+           const  index = indexedArray[0]
+           console.log('Indexed data:', index);
             // Extract the file from the request (published paper)
             const publishedPaper = req.file;
 
@@ -35,7 +37,7 @@ class ConferanceHandler{
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
-            const result = await pool.query(query, [
+            const [result] = await pool.query(query, [
                 conferenceName,
                 venue,
                 conferenceDate,
@@ -44,7 +46,7 @@ class ConferanceHandler{
                 JSON.stringify(authors), // Convert authors array to JSON string
                 paperTitle,
                 paperStatus,
-                indexed,
+                index,
                 publishedPaper ? publishedPaper.buffer : null, // Use buffer from uploaded file
                 userId
             ]);
@@ -74,7 +76,7 @@ class ConferanceHandler{
     static fetchAllConferenceWithUserId = async (req, res) => {
         try {
             const { userId } = req.params;
-
+   
             // Check if userId is provided
             if (!userId) {
                 return res.status(400).json({
@@ -85,7 +87,7 @@ class ConferanceHandler{
 
             // Fetch conferences from the database based on userId
             const query = `
-                SELECT conferenceID, conferenceName, venue, conferenceDate, registrationFee, attendedMode, authors, paperTitle, paperStatus, indexed, createdAt 
+                SELECT conferenceID, conferenceName, venue, conferenceDate, registrationFee, attendedMode, authors, paperTitle, paperStatus, indexed, createdAt ,publishedPaper
                 FROM Conference 
                 WHERE userId = ?
             `;
@@ -98,7 +100,6 @@ class ConferanceHandler{
                     message: "No conferences found for the provided User ID"
                 });
             }
-
             // Send response with fetched conferences
             return res.status(200).json({
                 success: true,
@@ -129,7 +130,7 @@ class ConferanceHandler{
                 paperStatus,
                 indexed
             } = req.body;
-
+          
             // Check if conferenceID is provided
             if (!conferenceID) {
                 return res.status(400).json({
@@ -137,6 +138,7 @@ class ConferanceHandler{
                     message: "Conference ID is required"
                 });
             }
+          
 
             // Validate required fields
             if (!conferenceName || !venue || !conferenceDate || !attendedMode || !authors || !paperTitle || !paperStatus || !indexed) {
@@ -144,10 +146,10 @@ class ConferanceHandler{
                     success: false,
                     message: "All fields except registration fee and published paper are required"
                 });
-            }
-
-            // Update query to modify conference record in the database
-            const query = `
+            }    
+    
+            // Start constructing the update query and parameters
+            let query = `
                 UPDATE Conference 
                 SET 
                     conferenceName = ?, 
@@ -159,23 +161,25 @@ class ConferanceHandler{
                     paperTitle = ?, 
                     paperStatus = ?, 
                     indexed = ?
-                WHERE 
-                    conferenceID = ?
             `;
-
-            const result = await pool.query(query, [
+            let queryParams = [
                 conferenceName,
                 venue,
                 conferenceDate,
-                registrationFee || null,
+                registrationFee,
                 attendedMode,
-                JSON.stringify(authors), // Storing authors as JSON
+                JSON.stringify(authors), // Convert authors array to JSON
                 paperTitle,
                 paperStatus,
                 indexed,
-                conferenceID
-            ]);
-
+            ];
+    
+            // Complete the query
+            query += ` WHERE conferenceID = ?`;
+            queryParams.push(conferenceID);
+       
+            const result = await pool.query(query, queryParams);
+    
             // Check if the conference was found and updated
             if (result[0].affectedRows === 0) {
                 return res.status(404).json({
@@ -183,14 +187,15 @@ class ConferanceHandler{
                     message: "Conference not found"
                 });
             }
-
+    
             // Success response
             return res.status(200).json({
                 success: true,
                 message: "Conference updated successfully"
             });
-
+    
         } catch (error) {
+            
             console.error("Error updating conference:", error);
             return res.status(500).json({
                 success: false,
@@ -198,6 +203,7 @@ class ConferanceHandler{
             });
         }
     };
+    
 
     static deleteConferanceWithConferanceId = async (req, res) => {
         try {

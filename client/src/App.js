@@ -16,15 +16,23 @@ import ViewConference from "./Component/Staff/Research/Publications/Conferance/V
 import ConferencesList from "./Component/Staff/Research/Publications/Conferance/ConferencesList";
 import AddConference from "./Component/Staff/Research/Publications/Conferance/AddConference";
 import UpdateConference from "./Component/Staff/Research/Publications/Conferance/UpdateConferance";
+import Register from "./Component/Login/Register";
+import AddJournal from "./Component/Staff/Research/Publications/Journal/AddJournal";
+import JournalsList from "./Component/Staff/Research/Publications/Journal/JournalList";
+import ViewJournal from "./Component/Staff/Research/Publications/Journal/ViewJournal";
+import UpdateJournal from "./Component/Staff/Research/Publications/Journal/UpdateJournal";
 
 function App() {
   return (
     <AppProvider>
       <div className="App">
         <Router>
+
           <LayoutWithNavbarAndSidebar />
+
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
             <Route
               path="/faculty"
               element={<ProtectedRoute element={StaffLayout} />}
@@ -41,14 +49,36 @@ function App() {
             />
 
             <Route
-              path="/conferences/view/:id"
+              path="/conferences/view/"
               element={<ProtectedRoute element={ViewConference} />}
             />
 
             <Route
-              path="/conferences/update/:id"
+              path="/conferences/update/"
               element={<ProtectedRoute element={UpdateConference} />}
             />
+
+
+            <Route
+              path="/add/journal"
+              element={<ProtectedRoute element={AddJournal} />}
+            />
+
+            <Route
+              path="/journal/list"
+              element={<ProtectedRoute element={JournalsList} />}
+            />
+
+            <Route
+              path="/journal/view/"
+              element={<ProtectedRoute element={ViewJournal} />}
+            />
+
+            <Route
+              path="/journal/update/"
+              element={<ProtectedRoute element={UpdateJournal} />}
+            />
+
           </Routes>
         </Router>
       </div>

@@ -1,7 +1,6 @@
 import express from 'express';
-import AuthHandler from '../Handlers/AuthHandler.mjs';  // Adjust the path to your AuthHandler if needed
-
-const AuthRouter = express.Router();
+import AuthHandler from '../Handler/AuthHandler.mjs'
+const AuthRouter = express.Router()
 
 // Define routes and map them to the AuthHandler methods
 AuthRouter.post('/admin/login', AuthHandler.adminLogin); // Admin login route

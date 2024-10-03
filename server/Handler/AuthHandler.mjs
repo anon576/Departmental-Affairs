@@ -1,6 +1,7 @@
 import JwtOperation from '../Utils/jwtoken.mjs'
-import { pool } from '../Database/database.mjs'
+import  pool  from '../Database/Database.mjs'
 import { generateOTP, sendOTPMail } from '../Utils/email.mjs'
+import bcrypt from 'bcrypt'
 
 
 class AuthHandler {
@@ -38,21 +39,20 @@ class AuthHandler {
                     message: "User with the same email already exists",
                 });
             }
-
+            console.log(password.length)
             // Hash the user's password before saving it
             const hashedPassword = await bcrypt.hash(password, 10);
-
+            console.log(hashedPassword)
             // Insert new user into the User table
-            const newUser = await pool.query(
+            const [newUser] = await pool.query(
                 "INSERT INTO User (email, password, name, role, department, employeeId) VALUES (?, ?, ?, ?, ?, ?)",
                 [email, hashedPassword, name, role, department, employeeId]
             );
-
+          
             if (newUser.affectedRows === 1) {
                 return res.status(201).json({
                     success: true,
-                    message: "User registered successfully",
-                    userId: newUser.insertId,  // Return the new user's ID
+                    message: "User registered successfully"
                 });
             } else {
                 return res.status(500).json({
@@ -74,43 +74,47 @@ class AuthHandler {
         try {
             const { email, password } = req.body;
             const [userRows] = await pool.query('SELECT * FROM User WHERE email = ?', [email]);
-            console.log(userRows)
+    
             if (userRows.length === 0) {
                 return res.status(404).json({
                     success: false,
                     message: "User not found",
                 });
             }
-
+    
             const user = userRows[0];
-
-
-            if (user.password !== password) {
+    
+            // Compare the plain password with the hashed password stored in the DB
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
                 return res.status(401).json({
                     success: false,
                     message: "Incorrect password",
                 });
-            } else {
-                const payload = {
-                    "id": user.id,
-                    "role": user.role
-                };
-                const token = JwtOperation.generateToken(payload);
-                return res.status(200).json({
-                    token: token,
-                    success: true,
-                    message: "User Found",
-                    user: user,
-                });
             }
+    
+            // Generate JWT token upon successful login
+            const payload = {
+                id: user.id,
+                role: user.role,
+            };
+            const token = JwtOperation.generateToken(payload);
+    
+            return res.status(200).json({
+                token: token,
+                success: true,
+                message: "User Found",
+                user: user,
+            });
         } catch (error) {
-            console.error(error);
+            console.error("Error during login:", error);
             return res.status(500).json({
                 success: false,
                 message: "Internal Server Error",
             });
         }
     };
+    
 
 
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import ConferanceHandler from '../Handler/ConferanceHandler.mjs';
+import ConferanceHandler from '../Handler/CoferanceHandler.mjs'
 import multer from 'multer';
 
 // Initialize Express Router
@@ -26,7 +26,7 @@ ConferanceRouter.get(
 
 // Update conference details by conferenceId
 ConferanceRouter.put(
-    '/update/:conferenceID', 
+    '/update/:conferenceID',  upload.single('publishedPaper'),
     ConferanceHandler.updateConferanceWithConferanceId
 );
 
