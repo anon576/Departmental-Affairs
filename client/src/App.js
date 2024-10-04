@@ -31,7 +31,7 @@ function App() {
           <LayoutWithNavbarAndSidebar />
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<ProtectedRoute element={{Home}}></ProtectedRoute>} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/faculty"
