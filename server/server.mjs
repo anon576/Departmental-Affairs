@@ -1,9 +1,10 @@
 import cors from 'cors';  // Import the cors module
 import dotenv from 'dotenv'; 
 import express from 'express';
-import AuthRouter from './Route/AuthRouter.mjs';
-import ConferanceRouter from './Route/ConferanceRouter.mjs';
+import AuthRouter from './Route/AuthRouter.mjs'
 import JwtOperation from './Utils/jwtoken.mjs'
+import ConferanceRouter from './Route/ConferanceRouter.mjs';
+import JournalRouter from './Route/JournalRouter.mjs';
 dotenv.config();
 
 const app = express();
@@ -54,7 +55,7 @@ app.use((err, req, res, next) => {
 
 
 app.use("/api/auth",AuthRouter)
-app.use("/api/conferance",ConferanceRouter)
-
+app.use("/api/conferences",ConferanceRouter)
+app.use("/api/journal",JournalRouter)
 
 app.listen(5000, '0.0.0.0');

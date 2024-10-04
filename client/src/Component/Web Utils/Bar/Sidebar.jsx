@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./sidebar.css";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { SiProtondrive } from "react-icons/si";
@@ -22,6 +22,15 @@ const Sidebar = () => {
     setOpenSubMenu(null);
     setOpenSubSubMenu(null);
   };
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const toggleDropdown = (menu) => {
     setSideBarOpen(true);
@@ -64,7 +73,7 @@ const Sidebar = () => {
             className="side-bar-profile-name"
             style={{ display: sideBarOpen ? "block" : "none" }}
           >
-            <p>Mr. Abhishek Purushottam Bhoyar</p>
+            {user ? <p>{user.name}</p> : <p>Loading...</p>}
           </div>
         </div>
 
@@ -73,24 +82,24 @@ const Sidebar = () => {
           style={{ display: sideBarOpen ? "block" : "none" }}
         >
           <div className="side-bar-profile-content">
-            <p>Id:</p>
-            <p>QWER1234567890</p>
+            <p>Employee Id:</p>
+            <p>{user ? user.employeeId : "Loading..."}</p>
           </div>
           <div className="side-bar-profile-content">
             <p>Department:</p>
-            <p>Inforamtion Technology</p>
+            <p>{user ? user.department : "Loading..."}</p>
           </div>
           <div className="side-bar-profile-content">
             <p>Degree:</p>
-            <p>B.Tech</p>
+            <p>{user ? user.degree : "Loading..."}</p>
           </div>
           <div className="side-bar-profile-content">
             <p>Passing Year:</p>
-            <p>2021</p>
+            <p>{user ? user.passingYear : "Loading..."}</p>
           </div>
 
           <div className="side-bar-profile-content">
-            <Link>View Detail</Link>
+            <Link to="/profile">View Detail</Link>
           </div>
         </div>
       </div>
@@ -215,22 +224,24 @@ const Sidebar = () => {
 
                   {openSubSubMenu === "journal" && (
                     <div className="third-sub-menu-box">
-                      <p
+                      <Link
+                        to="/journal/list"
                         className="third-sub-menu-link"
                         onClick={() => {
-                          /* Add your View Journal action here */
+                          /* Add your View Conference action here */
                         }}
                       >
-                        View Journal
-                      </p>
-                      <p
+                        View journal
+                      </Link>
+                      <Link
+                        to="/add/journal"
                         className="third-sub-menu-link"
                         onClick={() => {
-                          /* Add your Add Journal action here */
+                          /* Add your Add Conference action here */
                         }}
                       >
-                        Add Journal
-                      </p>
+                        Add journal
+                      </Link>
                     </div>
                   )}
                 </div>

@@ -1,10 +1,10 @@
-// src/components/ConferencesList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "./conferanceList.css";
 import ConfirmDialogBox from "../../../../Web Utils/Dialog Box/ConfirmDialogBox";
+import { BACKEND_API } from "../../../../constant";
 
 const ConferencesList = () => {
   const [conferences, setConferences] = useState([]);
@@ -14,63 +14,36 @@ const ConferencesList = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [selectedConference, setSelectedConference] = useState(null);
 
-  // Fetch all conferences on component mount
-  // useEffect(() => {
-  //   fetchConferences();
-  // }, []);
-
-  // const fetchConferences = async () => {
-  //   try {
-  //     const response = await axios.get("/api/conferences");
-  //     setConferences(response.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error fetching conferences:", error);
-  //     toast.error("Failed to fetch conferences. Please try again.");
-  //     setLoading(false);
-  //   }
-  // };
+  const token = localStorage.getItem("authToken");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser.userId; // Retrieve userId from localStorage
 
   useEffect(() => {
-    fetchConferences();
-  }, []);
+    if (userId && token) {
+      fetchConferences();
+    } else {
+      toast.error("User not authenticated. Please log in.");
+      navigate("/login"); // Redirect to login if token or userId is missing
+    }
+  }, [userId, token, navigate]);
 
-  // Simulated fetch request with sample data
   const fetchConferences = async () => {
     try {
-      // Sample data to simulate real API data
-      const sampleConferences = [
-        {
-          _id: "1",
-          conferenceName: "AI Innovations 2024",
-          paperTitle: "Deep Learning in Healthcare",
-          indexed: ["IEEE", "Springer"],
-          date: "2024-11-05",
-          location: "New York, USA",
-          status: "Upcoming",
+      const config = {
+        headers: {
+          Authorization: `${token}`, // Add the token to the request header
         },
-        {
-          _id: "2",
-          conferenceName: "Web Dev Summit",
-          paperTitle: "Next-gen Web Technologies",
-          indexed: ["ACM", "Elsevier"],
-          date: "2024-10-20",
-          location: "Berlin, Germany",
-          status: "Ongoing",
-        },
-        {
-          _id: "3",
-          conferenceName: "Data Science Expo",
-          paperTitle: "Machine Learning Models",
-          indexed: ["IEEE"],
-          date: "2024-09-10",
-          location: "Tokyo, Japan",
-          status: "Completed",
-        },
-      ];
+      };
 
-      setConferences(sampleConferences);
-      setLoading(false);
+      const response = await axios.get(BACKEND_API + `/conferences/user/${userId}`, config);
+
+      if (response.data.success) {
+        setConferences(response.data.conferences);
+        setLoading(false);
+      } else {
+        toast.error(response.data.message);
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Error fetching conferences:", error);
       toast.error("Failed to fetch conferences. Please try again.");
@@ -78,12 +51,13 @@ const ConferencesList = () => {
     }
   };
 
-  const handleView = (id) => {
-    navigate(`/conferences/view/${id}`);
+  const handleView = (conference) => {
+    // Pass the entire conference data object to the ViewConference component
+    navigate(`/conferences/view`, { state: { conferenceData: conference } });
   };
 
-  const handleUpdate = (id) => {
-    navigate(`/conferences/update/${id}`);
+  const handleUpdate = (conference) => {
+    navigate(`/conferences/update`,{ state: {  conference } });;
   };
 
   const handleDeleteClick = (conference) => {
@@ -95,11 +69,14 @@ const ConferencesList = () => {
     if (!selectedConference) return;
 
     try {
-      // await axios.delete(`/api/conferences/${selectedConference._id}`);
+      await axios.delete(`${BACKEND_API}/conferences/delete/${selectedConference.conferenceID}`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
       toast.success("Conference deleted successfully.");
       setIsConfirmOpen(false); // Close confirmation dialog
-      // Refresh the list
-      fetchConferences();
+      fetchConferences(); // Refresh the list
     } catch (error) {
       console.error("Error deleting conference:", error);
       toast.error("Failed to delete conference. Please try again.");
@@ -138,20 +115,20 @@ const ConferencesList = () => {
             </thead>
             <tbody>
               {conferences.map((conference) => (
-                <tr key={conference._id}>
+                <tr key={conference.conferenceID}>
                   <td>{conference.conferenceName}</td>
                   <td>{conference.paperTitle}</td>
-                  <td>{conference.indexed.join(", ")}</td>
+                  <td>{conference.indexed}</td>
                   <td className="conferance-buttons-container">
                     <button
                       className="view-button"
-                      onClick={() => handleView(conference._id)}
+                      onClick={() => handleView(conference)} // Pass the whole conference object
                     >
                       View
                     </button>
                     <button
                       className="update-button"
-                      onClick={() => handleUpdate(conference._id)}
+                      onClick={() => handleUpdate(conference)}
                     >
                       Update
                     </button>
