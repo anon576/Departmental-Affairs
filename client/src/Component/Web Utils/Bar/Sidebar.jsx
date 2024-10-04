@@ -270,10 +270,26 @@ const Sidebar = () => {
               </div>
 
               {openSubMenu === "proposal" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">View Proposal</p>
-                  <p className="second-sub-menu-link">Add New Proposal</p>
-                </div>
+                                   <div className="third-sub-menu-box">
+                                   <Link
+                                     to="/praposal/list"
+                                     className="third-sub-menu-link"
+                                     onClick={() => {
+                                       /* Add your View Conference action here */
+                                     }}
+                                   >
+                                     View Praposal
+                                   </Link>
+                                   <Link
+                                     to="/add/praposal"
+                                     className="third-sub-menu-link"
+                                     onClick={() => {
+                                       /* Add your Add Conference action here */
+                                     }}
+                                   >
+                                     Add Praposal
+                                   </Link>
+                                 </div>
               )}
 
               {/* Patent */}

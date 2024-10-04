@@ -21,6 +21,10 @@ import AddJournal from "./Component/Staff/Research/Publications/Journal/AddJourn
 import JournalsList from "./Component/Staff/Research/Publications/Journal/JournalList";
 import ViewJournal from "./Component/Staff/Research/Publications/Journal/ViewJournal";
 import UpdateJournal from "./Component/Staff/Research/Publications/Journal/UpdateJournal";
+import AddProposal from "./Component/Staff/Research/Praposal/AddPraposal";
+import ProposalsList from './Component/Staff/Research/Praposal/Praposal_List'
+import ViewProposal from "./Component/Staff/Research/Praposal/ViewPraposal";
+import UpdateProposal from "./Component/Staff/Research/Praposal/UpdatePraposal";
 
 function App() {
   return (
@@ -31,7 +35,7 @@ function App() {
           <LayoutWithNavbarAndSidebar />
 
           <Routes>
-            <Route path="/" element={<ProtectedRoute element={{Home}}></ProtectedRoute>} />
+            <Route path="/" element={<ProtectedRoute element={{ Home }}></ProtectedRoute>} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/faculty"
@@ -77,6 +81,26 @@ function App() {
             <Route
               path="/journal/update/"
               element={<ProtectedRoute element={UpdateJournal} />}
+            />
+
+            <Route
+              path="/add/praposal"
+              element={<ProtectedRoute element={AddProposal} />}
+            />
+
+            <Route
+              path="/praposal/list"
+              element={<ProtectedRoute element={ProposalsList} />}
+            />
+
+            <Route
+              path="/praposal/view"
+              element={<ProtectedRoute element={ViewProposal} />}
+            />
+
+            <Route
+              path="/praposal/update/"
+              element={<ProtectedRoute element={UpdateProposal} />}
             />
 
           </Routes>
