@@ -6,6 +6,8 @@
   box-shadow: 1px 1px 5px gray;
   overflow: hidden;
   transition: width 0.2s ease-in-out;
+  background-color: #e9ecef;
+  z-index: 1;
 }
 
 .side-bar-open {
@@ -19,6 +21,7 @@
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid black;
+  background-color: #00FFFF;
 }
 
 .side-bar-title {
@@ -34,6 +37,7 @@
   border-radius: 6px;
   overflow: hidden;
   transition: color, background-color 0.1s;
+  border: 2px solid black;
 }
 
 .side-bar-arrow:hover {
@@ -90,6 +94,10 @@
   cursor: pointer;
 }
 
+.sub-menu-link:hover{
+  background-color: #00ffffbb;
+}
+
 .sub-menu-link-text {
   display: flex;
   padding: 5px;
@@ -98,7 +106,7 @@
 
 .sub-menu-link-text:hover {
   /* background-color: #23d5d5; */
-  outline: 1px solid black;
+  outline: 1px solid #00ffffbb;
 }
 
 .second-sub-menu-box {
@@ -119,7 +127,8 @@
 }
 
 .second-sub-menu-link:hover {
-  background-color: rgba(128, 128, 128, 0.686);
+  /* background-color: rgba(128, 128, 128, 0.686); */
+  background-color: #00ffffbb;
 }
 
 .third-sub-menu-box {
@@ -139,8 +148,9 @@
   display: block;
   position: relative;
   width: 0;
-  height: 1px;
-  background-color: black;
+  height: 2px;
+  /* background-color: black; */
+  background-color: #00A3A3;
   transition: width 0.2s;
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import ycce from "../../images/ycce.jpg";
-import banner from "../../images/banner.png";
+import banner from "../../images/logo2.png";
 import "./homeStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 

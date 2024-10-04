@@ -40,7 +40,7 @@ const Navbar = () => {
 
         <Link className="nav-bar-link" onClick={handleProfileOpen}>
           <FaUserCircle className="nav-bar-button" />
-          <p>Hi! Chaitanya</p>
+          <p>Hi! Abhishek</p>
         </Link>
 
         <div
@@ -50,7 +50,7 @@ const Navbar = () => {
         >
           <div className="profile-box-header">
             <FaUserCircle className="profile-image" />
-            <p>Mr. Chaitanya Ravindra Choudhari</p>
+            <p>Mr. Abhishek Purushottam Bhoyar</p>
           </div>
 
           <div className="profile-box-content">

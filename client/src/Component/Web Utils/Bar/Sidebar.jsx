@@ -64,7 +64,7 @@ const Sidebar = () => {
             className="side-bar-profile-name"
             style={{ display: sideBarOpen ? "block" : "none" }}
           >
-            <p>Mr. Chaitanya Ravindra Choudhari</p>
+            <p>Mr. Abhishek Purushottam Bhoyar</p>
           </div>
         </div>
 
