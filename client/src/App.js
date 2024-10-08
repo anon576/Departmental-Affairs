@@ -37,6 +37,10 @@ import FDPList from "./Component/Staff/FDP/FDPList";
 import AddFDP from "./Component/Staff/FDP/AddFDP";
 import ViewFDP from "./Component/Staff/FDP/ViewFDP";
 import UpdateFDP from "./Component/Staff/FDP/UpdateFDP";
+import AddSDP from "./Component/Staff/SDP/AddSDP";
+import SDPList from "./Component/Staff/SDP/SDPList";
+import ViewSDP from "./Component/Staff/SDP/ViewSDP";
+import UpdateSDP from "./Component/Staff/SDP/UpdateSDP";
 
 function App() {
   return (
@@ -173,6 +177,26 @@ function App() {
             <Route
               path="/fdp/update/"
               element={<ProtectedRoute element={UpdateFDP} />}
+            />
+
+<Route
+              path="/add/sdp"
+              element={<ProtectedRoute element={AddSDP} />}
+            />
+
+            <Route
+              path="/sdp/list"
+              element={<ProtectedRoute element={SDPList} />}
+            />
+
+            <Route
+              path="/sdp/view"
+              element={<ProtectedRoute element={ViewSDP} />}
+            />
+
+            <Route
+              path="/sdp/update/"
+              element={<ProtectedRoute element={UpdateSDP} />}
             />
 
           </Routes>

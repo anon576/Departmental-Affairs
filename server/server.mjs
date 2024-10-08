@@ -9,6 +9,7 @@ import PraposalRouter from './Route/PraposalRouter.mjs';
 import PatentRouter from './Route/PatentRouter.mjs';
 import CopyrightRouter from './Route/CopyrightRouter.mjs';
 import FDPRouter from './Route/FDPRouter.mjs';
+import SDPRouter from './Route/SDPRouter.mjs';
 dotenv.config();
 
 const app = express();
@@ -65,5 +66,6 @@ app.use("/api/proposals",PraposalRouter)
 app.use("/api/patents",PatentRouter)
 app.use("/api/copyright",CopyrightRouter)
 app.use("/api/fdp/",FDPRouter)
+app.use("/api/sdp",SDPRouter)
 
 app.listen(5000, '0.0.0.0');

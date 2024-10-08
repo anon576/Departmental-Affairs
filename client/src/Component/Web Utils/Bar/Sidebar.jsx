@@ -448,42 +448,25 @@ const Sidebar = () => {
           </div>
 
           {openDropdown === "sdp" && (
-            <div className="sub-menu-box">
-              <div
-                className="sub-menu-link"
-                onClick={() => toggleSubSubMenu("viewSDP")}
+            <div className="third-sub-menu-box">
+              <Link
+                to="/sdp/list"
+                className="third-sub-menu-link"
+                onClick={() => {
+                  /* Add your View Conference action here */
+                }}
               >
-                <p>View SDP</p>
-                <span
-                  className="down-arrow"
-                  style={{ display: sideBarOpen ? "flex" : "none" }}
-                ></span>
-              </div>
-
-              {openSubSubMenu === "viewSDP" && (
-                <div className="third-sub-menu-box">
-                  <p className="third-sub-menu-link">Detailed View</p>
-                  <p className="third-sub-menu-link">Summary View</p>
-                </div>
-              )}
-
-              <div
-                className="sub-menu-link"
-                onClick={() => toggleSubSubMenu("addSDP")}
+                View SDP
+              </Link>
+              <Link
+                to="/add/sdp"
+                className="third-sub-menu-link"
+                onClick={() => {
+                  /* Add your Add Conference action here */
+                }}
               >
-                <p>Add New SDP</p>
-                <span
-                  className="down-arrow"
-                  style={{ display: sideBarOpen ? "flex" : "none" }}
-                ></span>
-              </div>
-
-              {openSubSubMenu === "addSDP" && (
-                <div className="third-sub-menu-box">
-                  <p className="third-sub-menu-link">SDP Form</p>
-                  <p className="third-sub-menu-link">Upload Documents</p>
-                </div>
-              )}
+                Add SDP
+              </Link>
             </div>
           )}
         </div>
