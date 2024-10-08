@@ -270,26 +270,26 @@ const Sidebar = () => {
               </div>
 
               {openSubMenu === "proposal" && (
-                                   <div className="third-sub-menu-box">
-                                   <Link
-                                     to="/praposal/list"
-                                     className="third-sub-menu-link"
-                                     onClick={() => {
-                                       /* Add your View Conference action here */
-                                     }}
-                                   >
-                                     View Praposal
-                                   </Link>
-                                   <Link
-                                     to="/add/praposal"
-                                     className="third-sub-menu-link"
-                                     onClick={() => {
-                                       /* Add your Add Conference action here */
-                                     }}
-                                   >
-                                     Add Praposal
-                                   </Link>
-                                 </div>
+                <div className="third-sub-menu-box">
+                  <Link
+                    to="/praposal/list"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your View Conference action here */
+                    }}
+                  >
+                    View Praposal
+                  </Link>
+                  <Link
+                    to="/add/praposal"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your Add Conference action here */
+                    }}
+                  >
+                    Add Praposal
+                  </Link>
+                </div>
               )}
 
               {/* Patent */}
@@ -315,9 +315,25 @@ const Sidebar = () => {
               </div>
 
               {openSubMenu === "patent" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">View Patent</p>
-                  <p className="second-sub-menu-link">Add New Patent</p>
+                <div className="third-sub-menu-box">
+                  <Link
+                    to="/patent/list"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your View Conference action here */
+                    }}
+                  >
+                    View Patent
+                  </Link>
+                  <Link
+                    to="/add/patent"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your Add Conference action here */
+                    }}
+                  >
+                    Add Patent
+                  </Link>
                 </div>
               )}
 
@@ -344,9 +360,25 @@ const Sidebar = () => {
               </div>
 
               {openSubMenu === "copyright" && (
-                <div className="second-sub-menu-box">
-                  <p className="second-sub-menu-link">View Copyright</p>
-                  <p className="second-sub-menu-link">Add New Copyright</p>
+                <div className="third-sub-menu-box">
+                  <Link
+                    to="/copyright/list"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your View Conference action here */
+                    }}
+                  >
+                    View Copyright
+                  </Link>
+                  <Link
+                    to="/add/copyright"
+                    className="third-sub-menu-link"
+                    onClick={() => {
+                      /* Add your Add Conference action here */
+                    }}
+                  >
+                    Add Copyright
+                  </Link>
                 </div>
               )}
             </div>
@@ -373,62 +405,25 @@ const Sidebar = () => {
           </div>
 
           {openDropdown === "fdp" && (
-            <div className="sub-menu-box">
-              <div
-                className="sub-menu-link"
-                onClick={() => toggleSubSubMenu("viewFDP")}
+            <div className="third-sub-menu-box">
+              <Link
+                to="/fdp/list"
+                className="third-sub-menu-link"
+                onClick={() => {
+                  /* Add your View Conference action here */
+                }}
               >
-                <p>View FDP/STTP</p>
-                <span
-                  className="down-arrow"
-                  style={{ display: sideBarOpen ? "flex" : "none" }}
-                >
-                  <IoIosArrowDown
-                    className="down-arrow-icon"
-                    style={{
-                      transform:
-                        openSubSubMenu === "viewFDP"
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                    }}
-                  />
-                </span>
-              </div>
-
-              {openSubSubMenu === "viewFDP" && (
-                <div className="third-sub-menu-box">
-                  <p className="third-sub-menu-link">Detailed View</p>
-                  <p className="third-sub-menu-link">Summary View</p>
-                </div>
-              )}
-
-              <div
-                className="sub-menu-link"
-                onClick={() => toggleSubSubMenu("addFDP")}
+                View FDP
+              </Link>
+              <Link
+                to="/add/fdp"
+                className="third-sub-menu-link"
+                onClick={() => {
+                  /* Add your Add Conference action here */
+                }}
               >
-                <p>Add New FDP/STTP</p>
-                <span
-                  className="down-arrow"
-                  style={{ display: sideBarOpen ? "flex" : "none" }}
-                >
-                  <IoIosArrowDown
-                    className="down-arrow-icon"
-                    style={{
-                      transform:
-                        openSubSubMenu === "addFDP"
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                    }}
-                  />
-                </span>
-              </div>
-
-              {openSubSubMenu === "addFDP" && (
-                <div className="third-sub-menu-box">
-                  <p className="third-sub-menu-link">FDP/STTP Form</p>
-                  <p className="third-sub-menu-link">Upload Documents</p>
-                </div>
-              )}
+                Add FDP
+              </Link>
             </div>
           )}
         </div>

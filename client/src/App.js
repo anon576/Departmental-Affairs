@@ -25,6 +25,18 @@ import AddProposal from "./Component/Staff/Research/Praposal/AddPraposal";
 import ProposalsList from './Component/Staff/Research/Praposal/Praposal_List'
 import ViewProposal from "./Component/Staff/Research/Praposal/ViewPraposal";
 import UpdateProposal from "./Component/Staff/Research/Praposal/UpdatePraposal";
+import AddPatent from "./Component/Staff/Research/Patent/AddPatent";
+import PatentsList from "./Component/Staff/Research/Patent/PatentList";
+import ViewPatent from "./Component/Staff/Research/Patent/ViewPatent";
+import UpdatePatent from "./Component/Staff/Research/Patent/UpdatePatent";
+import AddCopyright from "./Component/Staff/Research/Copyright/AddCopyright";
+import CopyrightList from "./Component/Staff/Research/Copyright/CopyrightList";
+import ViewCopyright from "./Component/Staff/Research/Copyright/ViewCopyright";
+import UpdateCopyright from "./Component/Staff/Research/Copyright/UpdateCopyright";
+import FDPList from "./Component/Staff/FDP/FDPList";
+import AddFDP from "./Component/Staff/FDP/AddFDP";
+import ViewFDP from "./Component/Staff/FDP/ViewFDP";
+import UpdateFDP from "./Component/Staff/FDP/UpdateFDP";
 
 function App() {
   return (
@@ -101,6 +113,66 @@ function App() {
             <Route
               path="/praposal/update/"
               element={<ProtectedRoute element={UpdateProposal} />}
+            />
+
+            <Route
+              path="/add/patent"
+              element={<ProtectedRoute element={AddPatent} />}
+            />
+
+            <Route
+              path="/patent/list"
+              element={<ProtectedRoute element={PatentsList} />}
+            />
+
+            <Route
+              path="/patent/view"
+              element={<ProtectedRoute element={ViewPatent} />}
+            />
+
+            <Route
+              path="/patent/update/"
+              element={<ProtectedRoute element={UpdatePatent} />}
+            />
+
+            <Route
+              path="/add/copyright"
+              element={<ProtectedRoute element={AddCopyright} />}
+            />
+
+            <Route
+              path="/copyright/list"
+              element={<ProtectedRoute element={CopyrightList} />}
+            />
+
+            <Route
+              path="/copyright/view"
+              element={<ProtectedRoute element={ViewCopyright} />}
+            />
+
+            <Route
+              path="/copyright/update/"
+              element={<ProtectedRoute element={UpdateCopyright} />}
+            />
+
+            <Route
+              path="/add/fdp"
+              element={<ProtectedRoute element={AddFDP} />}
+            />
+
+            <Route
+              path="/fdp/list"
+              element={<ProtectedRoute element={FDPList} />}
+            />
+
+            <Route
+              path="/fdp/view"
+              element={<ProtectedRoute element={ViewFDP} />}
+            />
+
+            <Route
+              path="/fdp/update/"
+              element={<ProtectedRoute element={UpdateFDP} />}
             />
 
           </Routes>
