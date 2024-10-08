@@ -1,18 +1,22 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import Navbar from "../Web Utils/Bar/Navbar";
+import Sidebar from "../Web Utils/Bar/Sidebar";
 
-// Example authentication check function (replace with your actual logic)
-const isAuthenticated = () => {
-  // Replace this with your actual authentication logic (like checking a token)
-  return !!localStorage.getItem("authToken");
-};
+const ProtectedRoute = ({ element }) => {
+  const token = !!localStorage.getItem('authToken');
 
-const ProtectedRoute = ({ element: Component, ...rest }) => {
-  return isAuthenticated() ? (
-    <Component {...rest} />
-  ) : (
-    <Navigate to="/" replace />
-  );
-};
+  if (token) {
+    return (
+      <>
+        <Navbar />
+        <Sidebar />
+        {element} {/* Render the passed element here */}
+      </>
+    );
+  }
+
+  return <Navigate to="/login" />;
+}
 
 export default ProtectedRoute;

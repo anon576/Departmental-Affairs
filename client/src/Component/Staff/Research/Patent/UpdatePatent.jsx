@@ -88,16 +88,20 @@ const UpdatePatent = () => {
     }
   };
 
+ const handleUpdate = (patent) => {
+    navigate(`/patent/update/`, { state: { patentData :patent} });
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="conference-upadate-main-container">
-      <div className="conference-form-container">
-        <h2>Update Patent</h2>
+
         <form onSubmit={handleSubmit} className="conference-update-form">
           {/* Title */}
+          <h2>Update Patent</h2>
           <div className="form-group">
             <label htmlFor="title">
               Title<span className="required">*</span>
@@ -139,7 +143,7 @@ const UpdatePatent = () => {
             </div>
           ))}
 
-          <button type="button" onClick={handleAddApplicant} className="btn">
+          <button type="button" onClick={handleAddApplicant} className="submit-button">
             Add Applicant
           </button>
 
@@ -162,11 +166,11 @@ const UpdatePatent = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="btn">
+          <button type="submit" className="submit-button">
             Update Patent
           </button>
         </form>
-      </div>
+    
       <ToastContainer />
     </div>
   );

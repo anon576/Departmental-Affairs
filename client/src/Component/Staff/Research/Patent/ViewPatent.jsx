@@ -14,6 +14,11 @@ const ViewPatent = () => {
     setLoading(false); // Stop loading once data is set
   }, [patentData]);
 
+
+  const handleUpdate = (patent) => {
+    navigate(`/patent/update/`, { state: { patentData :patent} });
+  };
+  
   if (loading) {
     return <p>Loading patent details...</p>;
   }
@@ -54,13 +59,11 @@ const ViewPatent = () => {
           </button>
 
           <button
-            className="back-button"
-            onClick={() =>
-              navigate(`/patents/update/${patentData.patentID}`)
-            }
-          >
-            Update Patent
-          </button>
+                      className="back-button"
+                      onClick={() => handleUpdate(patentData)}
+                    >
+                      Update
+                    </button>
         </div>
       </div>
     </div>

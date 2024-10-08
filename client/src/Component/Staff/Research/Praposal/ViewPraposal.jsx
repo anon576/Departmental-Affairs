@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import UpdateProposal from "./UpdatePraposal";
 
 const ViewProposal = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const ViewProposal = () => {
     // Additional logic for fetching proposal data can go here if needed
     setLoading(false); // Stop loading once data is set
   }, [proposalData]);
+
+  const handleUpdate = (proposal) => {
+    navigate(`/praposal/update/`, { state: { proposal } });
+  };
 
   if (loading) {
     return <p>Loading proposal details...</p>;
@@ -66,12 +71,11 @@ const ViewProposal = () => {
 
           <button
             className="back-button"
-            onClick={() =>
-              navigate(`/proposals/update/${proposalData.proposalID}`)
-            }
+            onClick={() => handleUpdate(proposalData)}
           >
-            Update Proposal
+            Update
           </button>
+      
         </div>
       </div>
     </div>

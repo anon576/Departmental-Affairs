@@ -7,10 +7,8 @@ class JournalHandler {
             // Extract data from the request body
             const {
                 journalName,
-                venue,
                 journalDate,
                 registrationFee,
-                attendedMode,
                 authors,
                 paperTitle,
                 paperStatus,
@@ -23,7 +21,7 @@ class JournalHandler {
             const publishedPaper = req.file;
 
             // Check if required fields are present
-            if (!journalName || !venue || !journalDate || !attendedMode || !authors || !paperTitle || !paperStatus || !indexed || !userId) {
+            if (!journalName  || !journalDate  || !authors || !paperTitle || !paperStatus || !indexed || !userId) {
                 return res.status(400).json({
                     success: false,
                     message: 'Please fill all required fields'
@@ -33,16 +31,16 @@ class JournalHandler {
             // Insert into the database
             const query = `
                 INSERT INTO Journal 
-                (journalName, venue, journalDate, registrationFee, attendedMode, authors, paperTitle, paperStatus, indexed, publishedPaper, userId) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (journalName, journalDate, registrationFee, authors, paperTitle, paperStatus, indexed, publishedPaper, userId) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
             const [result] = await pool.query(query, [
                 journalName,
-                venue,
+            
                 journalDate,
                 registrationFee,
-                attendedMode,
+           
                 JSON.stringify(authors), // Convert authors array to JSON string
                 paperTitle,
                 paperStatus,
@@ -87,7 +85,7 @@ class JournalHandler {
 
             // Fetch journal from the database based on userId
             const query = `
-                SELECT journalID, journalName, venue, journalDate, registrationFee, attendedMode, authors, paperTitle, paperStatus, indexed, createdAt ,publishedPaper
+                SELECT journalID, journalName, journalDate, registrationFee, authors, paperTitle, paperStatus, indexed, createdAt ,publishedPaper
                 FROM Journal 
                 WHERE userId = ?
             `;
@@ -122,10 +120,10 @@ class JournalHandler {
             const { journalID } = req.params;
             const {
                 journalName,
-                venue,
+               
                 journalDate,
                 registrationFee,
-                attendedMode,
+                
                 authors,
                 paperTitle,
                 paperStatus,
@@ -133,15 +131,7 @@ class JournalHandler {
             } = req.body;
             const indexedArray = JSON.parse(indexed);
             const  index = indexedArray[0]
-          console.log(journalName,
-            venue,
-            journalDate,
-            registrationFee,
-            attendedMode,
-            authors,
-            paperTitle,
-            paperStatus,
-            indexed)
+     
             // Check if journalID is provided
             if (!journalID) {
                 return res.status(400).json({
@@ -152,7 +142,7 @@ class JournalHandler {
           
 
             // Validate required fields
-            if (!journalName || !venue || !journalDate || !attendedMode || !authors || !paperTitle || !paperStatus || !indexed) {
+            if (!journalName  || !journalDate  || !authors || !paperTitle || !paperStatus || !indexed) {
                 return res.status(400).json({
                     success: false,
                     message: "All fields except registration fee and published paper are required"
@@ -164,10 +154,10 @@ class JournalHandler {
                 UPDATE Journal 
                 SET 
                     journalName = ?, 
-                    venue = ?, 
+                    
                     journalDate = ?, 
                     registrationFee = ?, 
-                    attendedMode = ?, 
+                   
                     authors = ?, 
                     paperTitle = ?, 
                     paperStatus = ?, 
@@ -175,10 +165,10 @@ class JournalHandler {
             `;
             let queryParams = [
                 journalName,
-                venue,
+                
                 journalDate,
                 registrationFee,
-                attendedMode,
+          
                 JSON.stringify(authors), // Convert authors array to JSON
                 paperTitle,
                 paperStatus,

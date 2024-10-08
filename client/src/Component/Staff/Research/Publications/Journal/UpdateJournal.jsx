@@ -46,10 +46,8 @@ const UpdateJournal = () => {
 
       setJournalData({
         journalName: journal.journalName || "",
-        venue: journal.venue || "",
         journalDate: journal.journalDate ? convertDateFormat(journal.journalDate) : "",
         registrationFee: journal.registrationFee || "",
-        attendedMode: journal.attendedMode || "",
         authors: authorsArray.length > 0 ? authorsArray : [""],
         paperTitle: journal.paperTitle || "",
         paperStatus: journal.paperStatus || "",
@@ -126,15 +124,14 @@ const UpdateJournal = () => {
 
     if (!journalData.journalName.trim())
       newErrors.journalName = "Journal name is required.";
-    if (!journalData.venue.trim()) newErrors.venue = "Venue is required.";
+  
     if (!journalData.journalDate) newErrors.journalDate = "Date is required.";
     if (!journalData.registrationFee) {
       newErrors.registrationFee = "Registration fee is required.";
     } else if (isNaN(journalData.registrationFee)) {
       newErrors.registrationFee = "Registration fee must be a number.";
     }
-    if (!journalData.attendedMode)
-      newErrors.attendedMode = "Please select attendance type.";
+   
     journalData.authors.forEach((author, index) => {
       if (!author.trim()) {
         newErrors[`author_${index}`] = `Author ${index + 1} name is required.`;
@@ -165,10 +162,8 @@ const UpdateJournal = () => {
     // Prepare form data for submission
     const submissionData = new FormData();
     submissionData.append("journalName", journalData.journalName);
-    submissionData.append("venue", journalData.venue);
     submissionData.append("journalDate", journalData.journalDate);
     submissionData.append("registrationFee", journalData.registrationFee);
-    submissionData.append("attendedMode", journalData.attendedMode);
     submissionData.append("authors", JSON.stringify(journalData.authors));
     submissionData.append("paperTitle", journalData.paperTitle);
     submissionData.append("paperStatus", journalData.paperStatus);
@@ -197,10 +192,10 @@ const UpdateJournal = () => {
 
   return (
     <div className="conference-upadate-main-container">
-      <div className="conference-update-form-container">
-        <h2>Update Journal</h2>
-        <form onSubmit={handleSubmit}  encType="multipart/form-data">
+        
+        <form onSubmit={handleSubmit} className="conference-update-form"   encType="multipart/form-data">
           {/* Journal Name */}
+          <h2>Update Journal</h2>
           <div className="form-group">
             <label htmlFor="journalName">
               Journal Name<span className="required">*</span>
@@ -218,23 +213,7 @@ const UpdateJournal = () => {
             )}
           </div>
 
-          {/* Venue */}
-          <div className="form-group">
-            <label htmlFor="venue">
-              Venue<span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="venue"
-              name="venue"
-              value={journalData.venue}
-              onChange={handleChange}
-              className={errors.venue ? "error" : ""}
-            />
-            {errors.venue && (
-              <span className="error-message">{errors.venue}</span>
-            )}
-          </div>
+        
 
           {/* Date */}
           <div className="form-group">
@@ -275,36 +254,7 @@ const UpdateJournal = () => {
           </div>
 
           {/* Attended Mode */}
-          <div className="form-group">
-            <label>
-              Attended<span className="required">*</span>
-            </label>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="attendedMode"
-                  value="Offline"
-                  checked={journalData.attendedMode === "Offline"}
-                  onChange={handleChange}
-                />
-                Offline
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="attendedMode"
-                  value="Online"
-                  checked={journalData.attendedMode === "Online"}
-                  onChange={handleChange}
-                />
-                Online
-              </label>
-            </div>
-            {errors.attendedMode && (
-              <span className="error-message">{errors.attendedMode}</span>
-            )}
-          </div>
+        
 
           {/* Number of Authors */}
           <div className="form-group">
@@ -435,6 +385,16 @@ const UpdateJournal = () => {
                 />
                 IEEE
               </label>
+              <label>
+                <input
+                  type="checkbox"
+                  name="indexed"
+                  value="SCI"
+                  checked={journalData.indexed.includes("SCI")}
+                  onChange={handleChange}
+                />
+                SCI
+              </label>
             </div>
             {errors.indexed && (
               <span className="error-message">{errors.indexed}</span>
@@ -450,7 +410,7 @@ const UpdateJournal = () => {
 
         {/* Toast Notifications */}
         <ToastContainer />
-      </div>
+    
     </div>
   );
 };

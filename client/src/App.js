@@ -41,180 +41,166 @@ import AddSDP from "./Component/Staff/SDP/AddSDP";
 import SDPList from "./Component/Staff/SDP/SDPList";
 import ViewSDP from "./Component/Staff/SDP/ViewSDP";
 import UpdateSDP from "./Component/Staff/SDP/UpdateSDP";
+import Login from "./Component/Login/Login";
 
 function App() {
   return (
     <AppProvider>
       <div className="App">
         <Router>
-
-          <LayoutWithNavbarAndSidebar />
-
           <Routes>
-            <Route path="/" element={<ProtectedRoute element={{ Home }}></ProtectedRoute>} />
+            <Route path="/" element={<ProtectedRoute element={<Home />} />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route
               path="/faculty"
-              element={<ProtectedRoute element={StaffLayout} />}
+              element={<ProtectedRoute element={<StaffLayout />} />}
             />
 
             <Route
               path="/add/conference"
-              element={<ProtectedRoute element={AddConference} />}
+              element={<ProtectedRoute element={<AddConference />} />}
             />
 
             <Route
               path="/conference/list"
-              element={<ProtectedRoute element={ConferencesList} />}
+              element={<ProtectedRoute element={<ConferencesList />} />}
             />
 
             <Route
               path="/conferences/view/"
-              element={<ProtectedRoute element={ViewConference} />}
+              element={<ProtectedRoute element={<ViewConference />} />}
             />
 
             <Route
               path="/conferences/update/"
-              element={<ProtectedRoute element={UpdateConference} />}
+              element={<ProtectedRoute element={<UpdateConference />} />}
             />
-
 
             <Route
               path="/add/journal"
-              element={<ProtectedRoute element={AddJournal} />}
+              element={<ProtectedRoute element={<AddJournal />} />}
             />
 
             <Route
               path="/journal/list"
-              element={<ProtectedRoute element={JournalsList} />}
+              element={<ProtectedRoute element={<JournalsList />} />}
             />
 
             <Route
               path="/journal/view/"
-              element={<ProtectedRoute element={ViewJournal} />}
+              element={<ProtectedRoute element={<ViewJournal />} />}
             />
 
             <Route
               path="/journal/update/"
-              element={<ProtectedRoute element={UpdateJournal} />}
+              element={<ProtectedRoute element={<UpdateJournal />} />}
             />
 
             <Route
               path="/add/praposal"
-              element={<ProtectedRoute element={AddProposal} />}
+              element={<ProtectedRoute element={<AddProposal />} />}
             />
 
             <Route
               path="/praposal/list"
-              element={<ProtectedRoute element={ProposalsList} />}
+              element={<ProtectedRoute element={<ProposalsList />} />}
             />
 
             <Route
               path="/praposal/view"
-              element={<ProtectedRoute element={ViewProposal} />}
+              element={<ProtectedRoute element={<ViewProposal />} />}
             />
 
             <Route
               path="/praposal/update/"
-              element={<ProtectedRoute element={UpdateProposal} />}
+              element={<ProtectedRoute element={<UpdateProposal />} />}
             />
 
             <Route
               path="/add/patent"
-              element={<ProtectedRoute element={AddPatent} />}
+              element={<ProtectedRoute element={<AddPatent />} />}
             />
 
             <Route
               path="/patent/list"
-              element={<ProtectedRoute element={PatentsList} />}
+              element={<ProtectedRoute element={<PatentsList />} />}
             />
 
             <Route
               path="/patent/view"
-              element={<ProtectedRoute element={ViewPatent} />}
+              element={<ProtectedRoute element={<ViewPatent />} />}
             />
 
             <Route
               path="/patent/update/"
-              element={<ProtectedRoute element={UpdatePatent} />}
+              element={<ProtectedRoute element={<UpdatePatent />} />}
             />
 
             <Route
               path="/add/copyright"
-              element={<ProtectedRoute element={AddCopyright} />}
+              element={<ProtectedRoute element={<AddCopyright />} />}
             />
 
             <Route
               path="/copyright/list"
-              element={<ProtectedRoute element={CopyrightList} />}
+              element={<ProtectedRoute element={<CopyrightList />} />}
             />
 
             <Route
               path="/copyright/view"
-              element={<ProtectedRoute element={ViewCopyright} />}
+              element={<ProtectedRoute element={<ViewCopyright />} />}
             />
 
             <Route
               path="/copyright/update/"
-              element={<ProtectedRoute element={UpdateCopyright} />}
+              element={<ProtectedRoute element={<UpdateCopyright />} />}
             />
 
             <Route
               path="/add/fdp"
-              element={<ProtectedRoute element={AddFDP} />}
+              element={<ProtectedRoute element={<AddFDP />} />}
             />
 
             <Route
               path="/fdp/list"
-              element={<ProtectedRoute element={FDPList} />}
+              element={<ProtectedRoute element={<FDPList />} />}
             />
 
             <Route
               path="/fdp/view"
-              element={<ProtectedRoute element={ViewFDP} />}
+              element={<ProtectedRoute element={<ViewFDP />} />}
             />
 
             <Route
               path="/fdp/update/"
-              element={<ProtectedRoute element={UpdateFDP} />}
+              element={<ProtectedRoute element={<UpdateFDP />} />}
             />
 
-<Route
+            <Route
               path="/add/sdp"
-              element={<ProtectedRoute element={AddSDP} />}
+              element={<ProtectedRoute element={<AddSDP />} />}
             />
 
             <Route
               path="/sdp/list"
-              element={<ProtectedRoute element={SDPList} />}
+              element={<ProtectedRoute element={<SDPList />} />}
             />
 
             <Route
               path="/sdp/view"
-              element={<ProtectedRoute element={ViewSDP} />}
+              element={<ProtectedRoute element={<ViewSDP />} />}
             />
 
             <Route
               path="/sdp/update/"
-              element={<ProtectedRoute element={UpdateSDP} />}
+              element={<ProtectedRoute element={<UpdateSDP />} />}
             />
-
           </Routes>
         </Router>
       </div>
     </AppProvider>
   );
 }
-
-const LayoutWithNavbarAndSidebar = () => {
-  const location = useLocation();
-
-  return location.pathname !== "/" ? (
-    <>
-      <Navbar />
-      <Sidebar />
-    </>
-  ) : null;
-};
 
 export default App;

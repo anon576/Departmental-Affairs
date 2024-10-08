@@ -22,6 +22,9 @@ const ViewJournal = () => {
     return <p>Journal not found.</p>;
   }
 
+  const handleUpdate = (journal) => {
+    navigate(`/journal/update`, { state: { journal } });
+  };
   // Convert authors string to array if it's in JSON format
   const authors = JSON.parse(journalData.authors);
 
@@ -74,8 +77,8 @@ const ViewJournal = () => {
           </button>
 
           <button
-            className="update-button"
-            onClick={() => navigate(`/journal/update/${journalData.journalID}`)}
+             className="back-button"
+            onClick={() => handleUpdate(journalData)}
           >
             Update
           </button>

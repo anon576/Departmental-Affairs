@@ -20,7 +20,7 @@ const UpdateCopyright = () => {
     if (copyrightData) {
       setFormData({
         title: copyrightData.title,
-        applicants: (copyrightData.applicant) || [], // Directly assign the array
+        applicants: JSON.parse(copyrightData.applicant) || [], // Directly assign the array
         status: copyrightData.status,
       });
     }
@@ -95,10 +95,10 @@ const UpdateCopyright = () => {
 
   return (
     <div className="conference-upadate-main-container">
-      <div className="conference-form-container">
-        <h2>Update Copyright</h2>
+        
         <form onSubmit={handleSubmit} className="conference-update-form">
           {/* Title */}
+          <h2>Update Copyright</h2>
           <div className="form-group">
             <label htmlFor="title">
               Title<span className="required">*</span>
@@ -140,7 +140,7 @@ const UpdateCopyright = () => {
             </div>
           ))}
 
-          <button type="button" onClick={handleAddApplicant} className="btn">
+          <button type="button" onClick={handleAddApplicant} className="back-button">
             Add Applicant
           </button>
 
@@ -163,11 +163,11 @@ const UpdateCopyright = () => {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="btn">
+          <button type="submit" className="back-button">
             Update Copyright
           </button>
         </form>
-      </div>
+    
       <ToastContainer />
     </div>
   );

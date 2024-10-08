@@ -144,9 +144,10 @@ const UpdateProposal = () => {
 
   return (
     <div className="conference-upadate-main-container">
-      <div className="conference-form-container">
-        <h2>Update Proposal</h2>
+      
+        
         <form onSubmit={handleSubmit} className="conference-update-form" encType="multipart/form-data">
+        <h2>Update Proposal</h2>
           {/* Title */}
           <div className="form-group">
             <label htmlFor="title">
@@ -294,11 +295,11 @@ const UpdateProposal = () => {
 
 
           {/* Submit Button */}
-          <button type="submit" className="btn">
+          <button type="submit" className="submit-button">
             Update Proposal
           </button>
         </form>
-      </div>
+      
       <ToastContainer />
     </div>
   );

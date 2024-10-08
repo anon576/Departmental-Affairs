@@ -98,7 +98,7 @@ const SDPList = () => {
         <h2>SDP List</h2>
         <button
           className="add-conference-button"
-          onClick={() => navigate("/sdp/new")}
+          onClick={() => navigate("/add/sdp")}
         >
           Add New SDP
         </button>

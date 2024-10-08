@@ -14,6 +14,10 @@ const ViewFDP = () => {
     setLoading(false); // Stop loading once data is set
   }, [fdpData]);
 
+  const handleUpdate = (fdp) => {
+    navigate(`/fdp/update/`, { state: { fdpData: fdp } });
+  };
+
   if (loading) {
     return <p>Loading FDP details...</p>;
   }
@@ -69,11 +73,11 @@ const ViewFDP = () => {
           </button>
 
           <button
-            className="back-button"
-            onClick={() => navigate(`/fdp/update/${fdpData.fdpID}`)}
-          >
-            Update FDP
-          </button>
+                      className="back-button"
+                      onClick={() => handleUpdate(fdpData)}
+                    >
+                      Update
+                    </button>
         </div>
       </div>
     </div>

@@ -99,7 +99,7 @@ const FDPList = () => {
         <h2>FDP List</h2>
         <button
           className="add-conference-button"
-          onClick={() => navigate("/fdp/new")}
+          onClick={() => navigate("/add/fdp")}
         >
           Add New FDP
         </button>

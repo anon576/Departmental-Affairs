@@ -14,6 +14,10 @@ const ViewSDP = () => {
     setLoading(false); // Stop loading once data is set
   }, [sdpData]);
 
+  const handleUpdate = (sdp) => {
+    navigate(`/sdp/update/`, { state: { sdpData: sdp } });
+  };
+
   if (loading) {
     return <p>Loading SDP details...</p>;
   }
@@ -49,11 +53,11 @@ const ViewSDP = () => {
           </button>
 
           <button
-            className="back-button"
-            onClick={() => navigate(`/sdp/update/${sdpData.sdpID}`)}
-          >
-            Update SDP
-          </button>
+                      className="back-button"
+                      onClick={() => handleUpdate(sdpData)}
+                    >
+                      Update
+                    </button>
         </div>
       </div>
     </div>

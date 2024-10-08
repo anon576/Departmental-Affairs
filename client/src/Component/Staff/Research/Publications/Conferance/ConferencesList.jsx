@@ -97,7 +97,7 @@ const ConferencesList = () => {
         <h2>Conferences</h2>
         <button
           className="add-conference-button"
-          onClick={() => navigate("/conferences/new")}
+          onClick={() => navigate("/add/conference")}
         >
           Add New Conference
         </button>

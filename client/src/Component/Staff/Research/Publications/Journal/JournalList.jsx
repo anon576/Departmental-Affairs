@@ -92,7 +92,7 @@ const JournalsList = () => {
     <div className="conferance-list-main-container">
     <div className="conferences-list-container">
         <h2>Journals</h2>
-        <button  className="add-conference-button" onClick={() => navigate("/journal/new")}>
+        <button  className="add-conference-button" onClick={() => navigate("/add/journal")}>
           Add New Journal
         </button>
         {journals.length === 0 ? (

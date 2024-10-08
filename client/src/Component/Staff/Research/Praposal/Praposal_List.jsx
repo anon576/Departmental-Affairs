@@ -100,7 +100,7 @@ const ProposalsList = () => {
         <h2>Proposals</h2>
         <button
           className="add-conference-button"
-          onClick={() => navigate("/proposals/new")}
+          onClick={() => navigate("/add/praposal")}
         >
           Add New Proposal
         </button>

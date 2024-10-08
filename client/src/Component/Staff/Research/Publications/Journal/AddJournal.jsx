@@ -81,15 +81,12 @@ const AddJournal = () => {
 
     if (!formData.journalName.trim())
       newErrors.journalName = "Journal name is required.";
-    if (!formData.venue.trim()) newErrors.venue = "Venue is required.";
     if (!formData.journalDate) newErrors.journalDate = "Date is required.";
     if (!formData.registrationFee) {
       newErrors.registrationFee = "Registration fee is required.";
     } else if (isNaN(formData.registrationFee)) {
       newErrors.registrationFee = "Registration fee must be a number.";
     }
-    if (!formData.attendedMode)
-      newErrors.attendedMode = "Please select attendance type.";
     formData.authors.forEach((author, index) => {
       if (!author.trim()) {
         newErrors[`author_${index}`] = `Author ${index + 1} name is required.`;
@@ -133,10 +130,8 @@ const AddJournal = () => {
     // Prepare form data for submission
     const submissionData = new FormData();
     submissionData.append("journalName", formData.journalName);
-    submissionData.append("venue", formData.venue);
     submissionData.append("journalDate", formData.journalDate);
     submissionData.append("registrationFee", formData.registrationFee);
-    submissionData.append("attendedMode", formData.attendedMode);
     submissionData.append("authors", JSON.stringify(formData.authors));
     submissionData.append("paperTitle", formData.paperTitle);
     submissionData.append("paperStatus", formData.paperStatus);
@@ -158,10 +153,8 @@ const AddJournal = () => {
         // Reset form
         setFormData({
           journalName: "",
-          venue: "",
           journalDate: "",
           registrationFee: "",
-          attendedMode: "",
           numberOfAuthors: 1,
           authors: [""],
           paperTitle: "",
@@ -207,23 +200,7 @@ const AddJournal = () => {
             )}
           </div>
 
-          {/* Venue */}
-          <div className="form-group">
-            <label htmlFor="venue">
-              Venue<span className="required">*</span>
-            </label>
-            <input
-              type="text"
-              id="venue"
-              name="venue"
-              value={formData.venue}
-              onChange={handleChange}
-              className={errors.venue ? "error" : ""}
-            />
-            {errors.venue && (
-              <span className="error-message">{errors.venue}</span>
-            )}
-          </div>
+        
 
           {/* Date */}
           <div className="form-group">
@@ -263,38 +240,7 @@ const AddJournal = () => {
             )}
           </div>
 
-          {/* Attended Mode */}
-          <div className="form-group">
-            <label>
-              Attended<span className="required">*</span>
-            </label>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="attendedMode"
-                  value="Offline"
-                  checked={formData.attendedMode === "Offline"}
-                  onChange={handleChange}
-                />
-                Offline
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="attendedMode"
-                  value="Online"
-                  checked={formData.attendedMode === "Online"}
-                  onChange={handleChange}
-                />
-                Online
-              </label>
-            </div>
-            {errors.attendedMode && (
-              <span className="error-message">{errors.attendedMode}</span>
-            )}
-          </div>
-
+         
           {/* Number of Authors */}
           <div className="form-group">
             <label htmlFor="numberOfAuthors">
@@ -419,6 +365,17 @@ const AddJournal = () => {
                   onChange={handleChange}
                 />
                 IEEE
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="indexed"
+                  value="SCI"
+                  checked={formData.indexed.includes("SCI")}
+                  onChange={handleChange}
+                />
+                SCI
               </label>
             </div>
             {errors.indexed && (

@@ -27,6 +27,9 @@ const ViewConference = () => {
   // Convert authors and indexed string to array
   const authors = JSON.parse(conferenceData.authors);
 
+  const handleUpdate = (conference) => {
+    navigate(`/conferences/update`,{ state: {  conference } });;
+  };
 
   return (
     <div className="conference-view-main-container">
@@ -78,7 +81,7 @@ const ViewConference = () => {
 
           <button
             className="back-button"
-            onClick={() => navigate(`/conferences/update/${conferenceData.conferenceID}`)}
+            onClick={() => handleUpdate(conferenceData)}
           >
             Update
           </button>
