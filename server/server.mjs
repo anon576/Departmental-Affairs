@@ -10,6 +10,7 @@ import PatentRouter from './Route/PatentRouter.mjs';
 import CopyrightRouter from './Route/CopyrightRouter.mjs';
 import FDPRouter from './Route/FDPRouter.mjs';
 import SDPRouter from './Route/SDPRouter.mjs';
+import StaffStatRouter from './Route/StaffStatsRoute.mjs';
 dotenv.config();
 
 const app = express();
@@ -67,5 +68,6 @@ app.use("/api/patents",PatentRouter)
 app.use("/api/copyright",CopyrightRouter)
 app.use("/api/fdp/",FDPRouter)
 app.use("/api/sdp",SDPRouter)
+app.use("/api/staff/",StaffStatRouter)
 
 app.listen(5000, '0.0.0.0');

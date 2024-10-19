@@ -20,17 +20,8 @@ const Login = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const user = JSON.parse(localStorage.getItem("user"));
-
-    if (authToken && user) {
-      // Redirect based on the stored user role
-      if (user.role === "faculty") {
-        navigate("/faculty");
-      } else if (user.role === "hod") {
-        navigate("/hod");
-      } else if (user.role === "admin") {
-        navigate("/admin");
-      }
-    }
+    navigate("/");
+    
   }, [navigate]);
 
   const changeRole = (newRole) => {
@@ -49,16 +40,7 @@ const Login = () => {
         console.log("Login successful:", response.data);
         localStorage.setItem("authToken", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-
-        // Redirect based on user role
-        if (response.data.user.role === "faculty") {
-          navigate("/faculty");
-        } else if (response.data.user.role === "hod") {
-          navigate("/hod");
-        } else if (response.data.user.role === "admin") {
-          navigate("/admin");
-        }
-
+        navigate("/");
         reset();
       } else {
         console.error("Login failed:", response.data.message);

@@ -1,15 +1,9 @@
-CREATE TABLE Proposal (
-    proposalID INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    agency VARCHAR(255) NOT NULL,
-    otherAgencyName VARCHAR(255),
-    status ENUM('Submitted', 'Accepted', 'Granted') NOT NULL,
-    amountClaimed DECIMAL(15, 2) NOT NULL CHECK (amountClaimed >= 0),
-    PI VARCHAR(255) NOT NULL,
-    CoPI VARCHAR(255) NOT NULL,
-    dateOfSubmission DATE NOT NULL,
-    proposalPDF LONGBLOB,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    userId INT NOT NULL,
-    FOREIGN KEY (userId) REFERENCES User(userId) ON DELETE CASCADE ON UPDATE CASCADE
-) 
+ const deptData = [
+		{ name: 'Patent', value: deptStats.patents, color: "red", route: '/patent/list' },
+		{ name: 'Conference', value: deptStats.conferences, color: "GREEN", route: '/conference/list' },
+		{ name: 'Journal', value: deptStats.journals, color: "#f72585", route: '/journal/list' },
+		{ name: 'Proposal', value: deptStats.proposals, color: "blue", route: '/praposal/list' },
+		{ name: 'Copyright', value: deptStats.copyrights, color: "orange", route: '/copyright/list' },
+		{ name: 'FDP/STTP', value: deptStats.fdps, color: "#219ebc", route: '/fdp/list' },
+		{ name: 'SDP', value: deptStats.sdps, color: "#d62828", route: '/sdp/list' },
+	];

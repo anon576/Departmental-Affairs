@@ -1,4 +1,4 @@
-// src/components/Proposals/ProposalsList.js
+// src/components/Proposals/ProposalsListHod.js
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import ConfirmDialogBox from "../../../Web Utils/Dialog Box/ConfirmDialogBox";
 import { BACKEND_API } from "../../../constant";
 
-const ProposalsList = () => {
+const ProposalsListHod = () => {
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const ProposalsList = () => {
 
   const token = localStorage.getItem("authToken");
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.userId; // Use optional chaining
+  const userId = storedUser?.department; // Use optional chaining
 
   useEffect(() => {
     if (userId && token) {
@@ -38,10 +38,10 @@ const ProposalsList = () => {
         },
       };
 
-      const response = await axios.get(`${BACKEND_API}/proposals/user/${userId}`, config);
+      const response = await axios.get(`${BACKEND_API}/proposals/department/${userId}`, config);
 
       if (response.data.success) {
-        setProposals(response.data.proposals);
+        setProposals(response.data.fdps);
         setLoading(false);
       } else {
         toast.error(response.data.message);
@@ -56,39 +56,10 @@ const ProposalsList = () => {
 
   const handleView = (proposal) => {
     // Pass the entire proposal data object to the ViewProposal component
-    navigate(`/praposal/view`, { state: { proposalData: proposal } });
+    navigate(`/praposal/view/hod`, { state: { proposalData: proposal } });
   };
 
-  const handleUpdate = (proposal) => {
-    navigate(`/praposal/update/`, { state: { proposal } });
-  };
-
-  const handleDeleteClick = (proposal) => {
-    setSelectedProposal(proposal);
-    setIsConfirmOpen(true); // Open confirmation dialog
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!selectedProposal) return;
-
-    try {
-      await axios.delete(`${BACKEND_API}/proposals/delete/${selectedProposal.proposalID}`, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
-      toast.success("Proposal deleted successfully.");
-      setIsConfirmOpen(false); // Close confirmation dialog
-      fetchProposals(); // Refresh the list
-    } catch (error) {
-      console.error("Error deleting proposal:", error);
-      toast.error("Failed to delete proposal. Please try again.");
-    }
-  };
-
-  const handleCancelDelete = () => {
-    setIsConfirmOpen(false); // Close confirmation dialog
-  };
+  
 
   if (loading) {
     return <p>Loading proposals...</p>;
@@ -98,12 +69,7 @@ const ProposalsList = () => {
     <div className="conferance-list-main-container">
     <div className="conferences-list-container">
         <h2>Proposals</h2>
-        <button
-          className="add-conference-button"
-          onClick={() => navigate("/add/praposal")}
-        >
-          Add New Proposal
-        </button>
+
         {proposals.length === 0 ? (
           <p>No proposals found.</p>
         ) : (
@@ -131,18 +97,7 @@ const ProposalsList = () => {
                     >
                       View
                     </button>
-                    <button
-                      className="update-button"
-                      onClick={() => handleUpdate(proposal)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDeleteClick(proposal)}
-                    >
-                      Delete
-                    </button>
+                  
                   </td>
                 </tr>
               ))}
@@ -150,15 +105,10 @@ const ProposalsList = () => {
           </table>
         )}
       </div>
-      <ConfirmDialogBox
-        isOpen={isConfirmOpen}
-        message={`Are you sure you want to delete the proposal titled "${selectedProposal?.title}"?`}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCancelDelete}
-      />
+     
       <ToastContainer />
     </div>
   );
 };
 
-export default ProposalsList;
+export default ProposalsListHod;

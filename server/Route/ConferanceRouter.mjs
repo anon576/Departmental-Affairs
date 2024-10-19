@@ -38,8 +38,8 @@ ConferanceRouter.delete(
 
 // Fetch conferences for users of a specific department
 ConferanceRouter.get(
-    '/department/:department', 
-    ConferanceHandler.fetchConferaceWithDepartment
+    '/department/:dept', 
+    ConferanceHandler.viewByBranch
 );
 
 export default ConferanceRouter;

@@ -226,52 +226,32 @@ class PraposalHandler{
     };
     
 
-    static viewByBranch = async (req, res) => {
+    static viewByBranch = async(req,res)=>{
         try {
-            const { branch } = req.params;
-    
-            // Check if branch is provided
-            if (!branch) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Branch is required"
-                });
-            }
-    
-            // Fetch proposals of users belonging to the specified branch
-            const query = `
-                SELECT p.proposalID, p.title, p.agency, p.status, 
-                       p.amountClaimed, p.PI, p.CoPI, p.dateOfSubmission, 
-                       p.proposalPDF, p.createdAt, u.name AS userName
-                FROM Proposal p
-                INNER JOIN User u ON p.userId = u.userId
-                WHERE u.branch = ?`;
-    
-            const [proposals] = await pool.query(query, [branch]);
-    
-            // If no proposals are found for the branch
-            if (proposals.length === 0) {
-                return res.status(404).json({
-                    success: false,
-                    message: `No proposals found for the branch: ${branch}`
-                });
-            }
-    
-            // Success response with the fetched proposals
-            return res.status(200).json({
-                success: true,
-                message: "Proposals fetched successfully",
-                data: proposals
-            });
-    
+          const { dept } = req.params; 
+          if (!dept) {
+            return res.status(400).json({ success: false, message: "User ID is required" });
+          }
+      
+         
+          const query = `  SELECT *
+          FROM Proposal f
+          JOIN User u ON f.userId = u.userId
+          WHERE u.department = ?`;
+          const [fdps] = await pool.execute(query, [dept]);
+      
+          
+          if (fdps.length === 0) {
+            return res.status(404).json({ success: false, message: "No FDPs found for this user" });
+          }
+      
+          // Respond with the FDP records
+          res.status(200).json({ success: true, fdps });
         } catch (error) {
-            console.error("Error fetching proposals by branch:", error);
-            return res.status(500).json({
-                success: false,
-                message: "Internal server error"
-            });
+          console.error("Error fetching FDPs:", error);
+          res.status(500).json({ success: false, message: "Failed to fetch FDPs. Please try again." });
         }
-    };
+      }
     
 }
 

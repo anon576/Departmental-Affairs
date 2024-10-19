@@ -41,7 +41,7 @@ FDPRouter.delete(
 
 // Fetch conferences for users of a specific department
 FDPRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     FDPHandler.viewByBranch
 );
 

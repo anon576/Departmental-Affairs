@@ -41,7 +41,7 @@ CopyrightRouter.delete(
 
 // Fetch conferences for users of a specific department
 CopyrightRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     CopyRightHandler.viewByBranch
 );
 

@@ -179,7 +179,30 @@ class FDPHandler{
       
 
     static viewByBranch = async(req,res)=>{
-
+      try {
+        const { dept } = req.params; 
+        if (!dept) {
+          return res.status(400).json({ success: false, message: "User ID is required" });
+        }
+    
+       
+        const query = `  SELECT *
+        FROM FDP f
+        JOIN User u ON f.userId = u.userId
+        WHERE u.department = ?`;
+        const [fdps] = await pool.execute(query, [dept]);
+    
+        
+        if (fdps.length === 0) {
+          return res.status(404).json({ success: false, message: "No FDPs found for this user" });
+        }
+    
+        // Respond with the FDP records
+        res.status(200).json({ success: true, fdps });
+      } catch (error) {
+        console.error("Error fetching FDPs:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch FDPs. Please try again." });
+      }
     }
 }
 

@@ -38,7 +38,7 @@ JournalRouter.delete(
 
 // Fetch conferences for users of a specific department
 JournalRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     JournalHandler.viewByBranch
 );
 

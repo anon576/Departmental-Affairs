@@ -38,7 +38,7 @@ PraposalRouter.delete(
 
 // Fetch conferences for users of a specific department
 PraposalRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     PraposalHandler.viewByBranch
 );
 

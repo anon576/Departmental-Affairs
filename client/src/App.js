@@ -42,6 +42,20 @@ import SDPList from "./Component/Staff/SDP/SDPList";
 import ViewSDP from "./Component/Staff/SDP/ViewSDP";
 import UpdateSDP from "./Component/Staff/SDP/UpdateSDP";
 import Login from "./Component/Login/Login";
+import FDPHoDList from "./Component/HOD/FDP/FDPListHod";
+import ConferencesListHod from "./Component/HOD/Research/Publications/Conferance/ConferencesListHod";
+import JournalsListHod from "./Component/HOD/Research/Publications/Journal/JournalList";
+import PatentsListHod from "./Component/HOD/Research/Patent/PatentList";
+import ProposalsListHod from "./Component/HOD/Research/Praposal/Praposal_List";
+import SDPListHod from "./Component/HOD/SDP/SDPList";
+import CopyrightListHod from "./Component/HOD/Research/Copyright/CopyrightList";
+import ViewSDPHod from "./Component/HOD/SDP/ViewSDP";
+import ViewFDPHOD from "./Component/HOD/FDP/ViewFDPHOD";
+import ViewPatentHod from "./Component/HOD/Research/Patent/ViewPatent";
+import ViewConferanceHOD from "./Component/HOD/Research/Publications/Conferance/ViewConferanceHOD";
+import ViewJournalHod from "./Component/HOD/Research/Publications/Journal/ViewJournal";
+import ViewProposalHod from "./Component/HOD/Research/Praposal/ViewPraposal";
+import ViewCopyrightHod from "./Component/HOD/Research/Copyright/ViewCopyright";
 
 function App() {
   return (
@@ -196,6 +210,78 @@ function App() {
               path="/sdp/update/"
               element={<ProtectedRoute element={<UpdateSDP />} />}
             />
+
+            <Route
+              path="/fdp/hod/"
+              element={<ProtectedRoute element={<FDPHoDList />} />}
+            />
+
+            <Route
+              path="/sdp/hod/"
+              element={<ProtectedRoute element={<SDPListHod />} />}
+            />
+
+            <Route
+              path="/conferance/hod/"
+              element={<ProtectedRoute element={<ConferencesListHod />} />}
+            />
+
+            <Route
+              path="/journal/hod/"
+              element={<ProtectedRoute element={<JournalsListHod />} />}
+            />
+            <Route
+              path="/patent/hod/"
+              element={<ProtectedRoute element={<PatentsListHod />} />}
+            />
+
+            <Route
+              path="/praposal/hod/"
+              element={<ProtectedRoute element={<ProposalsListHod />} />}
+            />
+
+            <Route
+              path="/copyright/hod/"
+              element={<ProtectedRoute element={<CopyrightListHod />} />}
+            />
+
+<Route
+              path="/sdp/view/hod"
+              element={<ProtectedRoute element={<ViewSDPHod />} />}
+            />
+
+<Route
+              path="/fdp/view/hod"
+              element={<ProtectedRoute element={<ViewFDPHOD />} />}
+            />
+
+<Route
+              path="/patent/view/hod"
+              element={<ProtectedRoute element={<ViewPatentHod />} />}
+            />
+
+<Route
+              path="/conference/view/hod"
+              element={<ProtectedRoute element={<ViewConferanceHOD />} />}
+            />
+
+<Route
+              path="/journal/view/hod"
+              element={<ProtectedRoute element={<ViewJournalHod />} />}
+            />
+
+<Route
+              path="/praposal/view/hod"
+              element={<ProtectedRoute element={<ViewProposalHod />} />}
+            />
+
+<Route
+              path="/copyright/view/hod"
+              element={<ProtectedRoute element={<ViewCopyrightHod />} />}
+            />
+
+
+
           </Routes>
         </Router>
       </div>

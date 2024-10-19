@@ -38,7 +38,7 @@ PatentRouter.delete(
 
 // Fetch conferences for users of a specific department
 PatentRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     PatentHandler.viewByBranch
 );
 

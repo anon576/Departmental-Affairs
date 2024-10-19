@@ -37,7 +37,7 @@ const Navbar = () => {
       </div>
 
       <div className="nav-bar-buttons">
-        <Link to="/faculty" className="nav-bar-link">
+        <Link to="/" className="nav-bar-link">
           <IoHome className="nav-bar-button" />
           <p>Home</p>
         </Link>

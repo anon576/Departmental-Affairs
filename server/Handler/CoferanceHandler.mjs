@@ -244,52 +244,32 @@ class ConferanceHandler{
         }
     };
 
-    static fetchConferaceWithDepartment = async (req, res) => {
+    static viewByBranch = async(req,res)=>{
         try {
-            const { department } = req.params;
-
-            // Check if department is provided
-            if (!department) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Department is required"
-                });
-            }
-
-            // Fetch conferences of users belonging to the specified department
-            const query = `
-                SELECT c.conferenceID, c.conferenceName, c.venue, c.conferenceDate, 
-                       c.registrationFee, c.attendedMode, c.authors, c.paperTitle, 
-                       c.paperStatus, c.indexed, c.publishedPaper, c.createdAt, u.name AS userName
-                FROM Conference c
-                INNER JOIN User u ON c.userId = u.userId
-                WHERE u.department = ?`;
-
-            const [conferences] = await pool.query(query, [department]);
-
-            // If no conferences are found for the department
-            if (conferences.length === 0) {
-                return res.status(404).json({
-                    success: false,
-                    message: `No conferences found for the department: ${department}`
-                });
-            }
-
-            // Success response with the fetched conferences
-            return res.status(200).json({
-                success: true,
-                message: "Conferences fetched successfully",
-                data: conferences
-            });
-
+          const { dept } = req.params; 
+          if (!dept) {
+            return res.status(400).json({ success: false, message: "User ID is required" });
+          }
+      
+         
+          const query = `  SELECT *
+          FROM Conference f
+          JOIN User u ON f.userId = u.userId
+          WHERE u.department = ?`;
+          const [fdps] = await pool.execute(query, [dept]);
+      
+          
+          if (fdps.length === 0) {
+            return res.status(404).json({ success: false, message: "No FDPs found for this user" });
+          }
+      
+          // Respond with the FDP records
+          res.status(200).json({ success: true, fdps });
         } catch (error) {
-            console.error("Error fetching conferences by department:", error);
-            return res.status(500).json({
-                success: false,
-                message: "Internal server error"
-            });
+          console.error("Error fetching FDPs:", error);
+          res.status(500).json({ success: false, message: "Failed to fetch FDPs. Please try again." });
         }
-    };
+      }
 
 }
 

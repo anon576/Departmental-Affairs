@@ -38,7 +38,7 @@ SDPRouter.delete(
 
 
 SDPRouter.get(
-    '/department/:department', 
+    '/department/:dept', 
     SDPHandler.viewByBranch
 );
 
