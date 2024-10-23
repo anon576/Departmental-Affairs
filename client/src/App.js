@@ -3,12 +3,9 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 import Home from "./Component/Home/Home";
 import StaffLayout from "./Component/Home/StaffLayout";
-import Navbar from "./Component/Web Utils/Bar/Navbar";
-import Sidebar from "./Component/Web Utils/Bar/Sidebar";
 import "./App.css";
 import ProtectedRoute from "./Component/Home/ProtectedRoute";
 import { AppProvider } from "./Component/Context/AppContext"; // Import the generalized AppContext
@@ -56,6 +53,15 @@ import ViewConferanceHOD from "./Component/HOD/Research/Publications/Conferance/
 import ViewJournalHod from "./Component/HOD/Research/Publications/Journal/ViewJournal";
 import ViewProposalHod from "./Component/HOD/Research/Praposal/ViewPraposal";
 import ViewCopyrightHod from "./Component/HOD/Research/Copyright/ViewCopyright";
+import EmployeeLayout from "./Component/Home/Employee/EmployeeDashboard";
+import EmployeePatentsList from "./Component/Home/Employee/Patent";
+import EmployeeConferencesList from "./Component/Home/Employee/Conferance";
+import EmployeeCopyrightList from "./Component/Home/Employee/Copyright";
+import EmployeeFDPList from "./Component/Home/Employee/FDP";
+import EmployeeSDPList from "./Component/Home/Employee/SDP";
+import EmployeeProposalsList from "./Component/Home/Employee/Praposal";
+import EmployeeJournalsList from "./Component/Home/Employee/Journal";
+import DeptDashboard from "./Component/Admin/DeptDashboard";
 
 function App() {
   return (
@@ -245,40 +251,88 @@ function App() {
               element={<ProtectedRoute element={<CopyrightListHod />} />}
             />
 
-<Route
+            <Route
               path="/sdp/view/hod"
               element={<ProtectedRoute element={<ViewSDPHod />} />}
             />
 
-<Route
+            <Route
               path="/fdp/view/hod"
               element={<ProtectedRoute element={<ViewFDPHOD />} />}
             />
 
-<Route
+            <Route
               path="/patent/view/hod"
               element={<ProtectedRoute element={<ViewPatentHod />} />}
             />
 
-<Route
+            <Route
               path="/conference/view/hod"
               element={<ProtectedRoute element={<ViewConferanceHOD />} />}
             />
 
-<Route
+            <Route
               path="/journal/view/hod"
               element={<ProtectedRoute element={<ViewJournalHod />} />}
             />
 
-<Route
+            <Route
               path="/praposal/view/hod"
               element={<ProtectedRoute element={<ViewProposalHod />} />}
             />
 
-<Route
+            <Route
               path="/copyright/view/hod"
               element={<ProtectedRoute element={<ViewCopyrightHod />} />}
             />
+
+
+            <Route
+              path="employee/dashboard/:userId"
+              element={<ProtectedRoute element={<EmployeeLayout />} />}
+            />
+
+
+            <Route
+              path="employee/patent/:userId"
+              element={<ProtectedRoute element={<EmployeePatentsList />} />}
+            />
+
+            <Route
+              path="/employee/conference/:userId"
+              element={<ProtectedRoute element={<EmployeeConferencesList />} />}
+            />
+
+            <Route
+              path="/employee/copyrights/:userId"
+              element={<ProtectedRoute element={<EmployeeCopyrightList />} />}
+            />
+
+            <Route
+              path="/employee/fdp/:userId"
+              element={<ProtectedRoute element={<EmployeeFDPList />} />}
+            />
+
+            <Route
+              path="/employee/sdp/:userId"
+              element={<ProtectedRoute element={<EmployeeSDPList />} />}
+            />
+
+            <Route
+              path="/employee/praposal/:userId"
+              element={<ProtectedRoute element={<EmployeeProposalsList />} />}
+            />
+
+            <Route
+              path="/employee/journal/:userId"
+              element={<ProtectedRoute element={<EmployeeJournalsList />} />}
+            />
+
+            <Route
+              path="/dept-dashboard/:dept"
+              element={<ProtectedRoute element={<DeptDashboard />} />}
+            />
+
 
 
 

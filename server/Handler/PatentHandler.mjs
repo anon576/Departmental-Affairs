@@ -26,7 +26,7 @@ class PatentHandler {
   static viewById = async (req, res) => {
     try {
       const { userId } = req.params;
-
+      console.log(userId)
       // Check if userId is provided
       if (!userId) {
         return res.status(400).json({

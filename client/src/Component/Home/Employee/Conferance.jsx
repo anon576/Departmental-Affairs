@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { BACKEND_API } from "../../../../constant";
+import { BACKEND_API } from "../../constant";
 
-const ConferencesListHod = () => {
+const EmployeeConferencesList = () => {
   const [conferences, setConferences] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
 
   const token = localStorage.getItem("authToken");
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser.department; // Retrieve userId from localStorage
+  const { userId } = useParams();
 
   useEffect(() => {
     if (userId && token) {
@@ -31,10 +30,10 @@ const ConferencesListHod = () => {
         },
       };
 
-      const response = await axios.get(BACKEND_API + `/conferences/department/${userId}`, config);
+      const response = await axios.get(BACKEND_API + `/conferences/user/${userId}`, config);
 
       if (response.data.success) {
-        setConferences(response.data.fdps);
+        setConferences(response.data.conferences);
         setLoading(false);
       } else {
         toast.error(response.data.message);
@@ -101,4 +100,4 @@ const ConferencesListHod = () => {
   );
 };
 
-export default ConferencesListHod;
+export default EmployeeConferencesList;

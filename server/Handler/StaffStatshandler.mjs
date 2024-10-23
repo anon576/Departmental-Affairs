@@ -12,8 +12,8 @@ class StaffStatsHandler {
             const [copyrights] = await pool.query('SELECT COUNT(*) as count FROM Copyright WHERE userId = ?', [userId]);
             const [fdps] = await pool.query('SELECT COUNT(*) as count FROM FDP WHERE userId = ?', [userId]);
             const [sdps] = await pool.query('SELECT COUNT(*) as count FROM SDP WHERE userId = ?', [userId]);
-
-            // Consolidating the fetched stats
+           
+         
             const stats = {
                 patents: patents[0].count,
                 conferences: conferences[0].count,
@@ -90,8 +90,12 @@ class StaffStatsHandler {
                 FROM SDP s
                 JOIN User u ON s.userId = u.userId
                 WHERE u.department = ?`, [department]);
-    
-            // Consolidating the fetched stats
+
+                const [staff] = await pool.query(`SELECT * FROM User where department = ?`,[department])
+                console.log(staff)
+
+
+
             const stats = {
                 patents: patents[0].count,
                 conferences: conferences[0].count,
@@ -101,11 +105,12 @@ class StaffStatsHandler {
                 fdps: fdps[0].count,
                 sdps: sdps[0].count,
             };
-            console.log(stats)
+           
     
             return res.status(200).json({
                 success: true,
                 stats: stats,
+                staff:staff
             });
         } catch (error) {
             console.error('Error fetching department stats:', error);

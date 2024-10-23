@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-
-import { useNavigate } from 'react-router-dom';
-import "./StaffLayout.css";
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify'; 
-import { BACKEND_API } from "../constant";
-import AffairSelect from "../Utils/AffairSelection";
-import PieChartComp from "../Utils/PieChartComp";
+import { toast } from 'react-toastify';
+import { BACKEND_API } from '../../constant'
+import AffairSelect from '../../Utils/AffairSelection'
+import PieChartComp from '../../Utils/PieChartComp'
 
 
-const StaffLayout = () => {
-	const navigate = useNavigate();
+const EmployeeLayout = () => {
+	const { userId } = useParams();
 	const [stats, setStats] = useState({
 		patents: 0,
 		conferences: 0,
@@ -22,18 +20,16 @@ const StaffLayout = () => {
 	});
 	const [loading, setLoading] = useState(true);
 	const token = localStorage.getItem("authToken");
-	const storedUser = JSON.parse(localStorage.getItem("user"));
-	const userId = storedUser?.userId;
 	const fetchStaffStats = async () => {
 		setLoading(true);
 		try {
 			const config = {
 				headers: {
-					Authorization: `${token}`, 
+					Authorization: `${token}`,
 				},
 			};
 
-			const response = await axios.get(`${BACKEND_API}/staff//staff-stats/${userId}`, config);
+			const response = await axios.get(`${BACKEND_API}/staff/staff-stats/${userId}`, config);
 
 			if (response.data.success) {
 				setStats(response.data.stats);
@@ -51,22 +47,21 @@ const StaffLayout = () => {
 
 
 	useEffect(() => {
+		console.log(userId)
 		fetchStaffStats();
 	}, []);
 
 	const data = [
-		{ name: 'Patent', value: stats.patents, color: "red", route: '/patent/list' },
-		{ name: 'Conference', value: stats.conferences, color: "GREEN", route: '/conference/list' },
-		{ name: 'Journal', value: stats.journals, color: "#f72585", route: '/journal/list' },
-		{ name: 'Proposal', value: stats.proposals, color: "blue", route: '/praposal/list' },
-		{ name: 'Copyright', value: stats.copyrights, color: "orange", route: '/copyright/list' },
-		{ name: 'FDP/STTP', value: stats.fdps, color: "#219ebc", route: '/fdp/list' },
-		{ name: 'SDP', value: stats.sdps, color: "#d62828", route: '/sdp/list' },
+		{ name: 'Patent', value: stats.patents, color: "red", route: `/employee/patent/${userId}` },
+		{ name: 'Conference', value: stats.conferences, color: "GREEN", route: `/employee/conference/${userId}` },
+		{ name: 'Journal', value: stats.journals, color: "#f72585", route: `/employee/journal/${userId}` },
+		{ name: 'Proposal', value: stats.proposals, color: "blue", route: `/employee/praposal/${userId}` },
+		{ name: 'Copyright', value: stats.copyrights, color: "orange", route: `/employee/copyrights/${userId}` },
+		{ name: 'FDP/STTP', value: stats.fdps, color: "#219ebc", route: `/employee/fdp/${userId}` },
+		{ name: 'SDP', value: stats.sdps, color: "#d62828", route: `/employee/sdp/${userId}` }
 	];
 
-	const handleButtonClick = (route) => {
-		navigate(route);
-	};
+
 
 	if (loading) {
 		return <p>Loading...</p>; // Show a loading message while fetching data
@@ -93,4 +88,4 @@ const StaffLayout = () => {
 	);
 };
 
-export default StaffLayout;
+export default EmployeeLayout;

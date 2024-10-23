@@ -29,7 +29,7 @@ const Register = () => {
       });
       if (response.data.success) {
         console.log("User registered successfully:", response.data);
-        navigate("/");
+        navigate("/login");
         reset();
       } else {
         console.error("Registration failed:", response.data.message);

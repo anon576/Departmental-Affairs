@@ -20,7 +20,11 @@ const Login = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const user = JSON.parse(localStorage.getItem("user"));
-    navigate("/");
+    if(authToken){
+      navigate("/")
+    }else{
+      navigate("/login")
+    }
     
   }, [navigate]);
 

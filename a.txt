@@ -1,9 +1,14 @@
- const deptData = [
-		{ name: 'Patent', value: deptStats.patents, color: "red", route: '/patent/list' },
-		{ name: 'Conference', value: deptStats.conferences, color: "GREEN", route: '/conference/list' },
-		{ name: 'Journal', value: deptStats.journals, color: "#f72585", route: '/journal/list' },
-		{ name: 'Proposal', value: deptStats.proposals, color: "blue", route: '/praposal/list' },
-		{ name: 'Copyright', value: deptStats.copyrights, color: "orange", route: '/copyright/list' },
-		{ name: 'FDP/STTP', value: deptStats.fdps, color: "#219ebc", route: '/fdp/list' },
-		{ name: 'SDP', value: deptStats.sdps, color: "#d62828", route: '/sdp/list' },
+	const deptData = [
+		{ name: 'Patent', color: "red", route: '/patent/hod/' },
+		{ name: 'Conference', color: "GREEN", route: 'conferance/hod/' },
+		{ name: 'Journal', color: "#f72585", route: '/journal/hod' },
+		{ name: 'Proposal', color: "blue", route: '/praposal/hod/' },
+		{ name: 'Copyright', color: "orange", route: '/copyright/hod/' },
+		{ name: 'FDP/STTP', color: "#219ebc", route: '/fdp/hod' },
+		{ name: 'SDP', color: "#d62828", route: '/sdp/hod' },
 	];
+
+
+for item in deptData{
+	
+}
