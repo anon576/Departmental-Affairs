@@ -7,4 +7,6 @@ StaffStatRouter.get("/staff-stats/:userId",StaffStatsHandler.fetchStaffStats)
 
 StaffStatRouter.get("/dept-stats/:dept",StaffStatsHandler.fetchDeptStats)
 
+StaffStatRouter.get("/admin-stats",StaffStatsHandler.adminStats)
+
 export default StaffStatRouter

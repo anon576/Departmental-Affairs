@@ -32,26 +32,26 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    if (req.path.startsWith('/api/auth')) {
-        // Skip JWT verification for /api/auth routes
-        return next();
-    }
+//     if (req.path.startsWith('/api/auth')) {
+//         // Skip JWT verification for /api/auth routes
+//         return next();
+//     }
 
-    const token = req.headers['authorization'];
+//     const token = req.headers['authorization'];
     
-    if (!token) {
-        return res.status(403).send('A token is required for authentication');
-    }
-    try {
-        const decoded = JwtOperation.verifyToken(token);
-        req.user = decoded;
-    } catch (err) {
-        return res.status(401).send('Invalid Token');
-    }
-    next();
-});
+//     if (!token) {
+//         return res.status(403).send('A token is required for authentication');
+//     }
+//     try {
+//         const decoded = JwtOperation.verifyToken(token);
+//         req.user = decoded;
+//     } catch (err) {
+//         return res.status(401).send('Invalid Token');
+//     }
+//     next();
+// });
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

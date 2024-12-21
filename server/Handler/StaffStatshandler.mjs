@@ -120,6 +120,95 @@ class StaffStatsHandler {
             });
         }
     };
+
+    static adminStats = async (req, res) => {
+        try {
+          // Querying all the tables and getting counts grouped by department
+          const [patents] = await pool.query(`
+            SELECT u.department, COUNT(p.patentID) as totalPatents
+            FROM Patent p
+            JOIN User u ON p.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [conferences] = await pool.query(`
+            SELECT u.department, COUNT(c.conferenceID) as totalConferences
+            FROM Conference c
+            JOIN User u ON c.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [journals] = await pool.query(`
+            SELECT u.department, COUNT(j.journalID) as totalJournals
+            FROM Journal j
+            JOIN User u ON j.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [proposals] = await pool.query(`
+            SELECT u.department, COUNT(pr.proposalID) as totalProposals
+            FROM Proposal pr
+            JOIN User u ON pr.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [copyrights] = await pool.query(`
+            SELECT u.department, COUNT(c.copyrightID) as totalCopyrights
+            FROM Copyright c
+            JOIN User u ON c.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [fdps] = await pool.query(`
+            SELECT u.department, COUNT(f.fdpID) as totalFdps
+            FROM FDP f
+            JOIN User u ON f.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          const [sdps] = await pool.query(`
+            SELECT u.department, COUNT(s.sdpID) as totalSdps
+            FROM SDP s
+            JOIN User u ON s.userId = u.userId
+            GROUP BY u.department
+          `);
+      
+          // Create a set of all departments found across all categories
+          const departments = new Set([
+            ...patents.map(p => p.department),
+            ...conferences.map(c => c.department),
+            ...journals.map(j => j.department),
+            ...proposals.map(p => p.department),
+            ...copyrights.map(c => c.department),
+            ...fdps.map(f => f.department),
+            ...sdps.map(s => s.department),
+          ]);
+      
+          // Merge the results for all departments
+          const stats = Array.from(departments).map(department => {
+            return {
+              department,
+              patents: patents.find(p => p.department === department)?.totalPatents || 0,
+              conferences: conferences.find(c => c.department === department)?.totalConferences || 0,
+              journals: journals.find(j => j.department === department)?.totalJournals || 0,
+              proposals: proposals.find(p => p.department === department)?.totalProposals || 0,
+              copyrights: copyrights.find(c => c.department === department)?.totalCopyrights || 0,
+              fdps: fdps.find(f => f.department === department)?.totalFdps || 0,
+              sdps: sdps.find(s => s.department === department)?.totalSdps || 0,
+            };
+          });
+      
+          return res.status(200).json({
+            success: true,
+            stats
+          });
+      
+        } catch (error) {
+          console.error("Error fetching admin stats:", error);
+          return res.status(500).json({ success: false, message: "Failed to fetch stats" });
+        }
+      };
+      
     
 
 }
